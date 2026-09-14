@@ -1,0 +1,543 @@
+INFO:     Started server process [33024]
+INFO:     Waiting for application startup.
+INFO:sentence_transformers.SentenceTransformer:Use pytorch device_name: cpu
+INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: intfloat/multilingual-e5-small
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00,  5.10it/s]Batches: 100%|##########| 1/1 [00:00<00:00,  5.10it/s]
+INFO:faiss.loader:Loading faiss with AVX2 support.
+INFO:faiss.loader:Successfully loaded faiss with AVX2 support.
+INFO:staysense:Semantic search index built with 10 accommodations
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49483 - "GET /api/health HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 93.10it/s]
+INFO:     127.0.0.1:49488 - "GET /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54921 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53661 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62943 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60765 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53661 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51236 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 83.32it/s]
+INFO:     127.0.0.1:51236 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51236 - "OPTIONS /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 124.99it/s]
+INFO:     127.0.0.1:51236 - "GET /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "OPTIONS /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "OPTIONS /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "GET /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "OPTIONS /api/accommodations/50/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "OPTIONS /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "OPTIONS /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "POST /api/accommodations/50/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:57181 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "GET /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "OPTIONS /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57181 - "GET /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62436 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61454 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49305 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61454 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:51811 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62436 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62436 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61454 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:51811 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49305 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62436 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62436 - "OPTIONS /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49305 - "OPTIONS /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51811 - "OPTIONS /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51811 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49305 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62436 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62436 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49305 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51811 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51811 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%80 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 47.60it/s]
+INFO:     127.0.0.1:51811 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%80 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 58.80it/s]
+INFO:     127.0.0.1:51811 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 56.60it/s]
+INFO:     127.0.0.1:51811 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 54.80it/s]
+INFO:     127.0.0.1:51811 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 56.85it/s]
+INFO:     127.0.0.1:51811 - "GET /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63753 - "OPTIONS /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "OPTIONS /api/accommodations/51 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63753 - "GET /api/accommodations/51 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63753 - "OPTIONS /api/accommodations/51/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "OPTIONS /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61452 - "OPTIONS /api/accommodations/51/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52187 - "OPTIONS /api/accommodations/51/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58268 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "POST /api/accommodations/51/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:61268 - "GET /api/accommodations/51/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63753 - "GET /api/accommodations/51/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61452 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51858 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51858 - "OPTIONS /api/home?q=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7+%E0%B8%A1%E0%B8%B5%E0%B8%AA%E0%B8%A3%E0%B8%B0%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%99%E0%B9%89%E0%B8%B3 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 48.75it/s]
+INFO:     127.0.0.1:51858 - "GET /api/home?q=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7+%E0%B8%A1%E0%B8%B5%E0%B8%AA%E0%B8%A3%E0%B8%B0%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%99%E0%B9%89%E0%B8%B3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50321 - "OPTIONS /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51858 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50321 - "GET /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50321 - "OPTIONS /api/accommodations/50/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51858 - "OPTIONS /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60704 - "OPTIONS /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51858 - "POST /api/accommodations/50/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:50321 - "GET /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64853 - "GET /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57580 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58623 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58623 - "OPTIONS /api/home?q=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%A7%E0%B8%B4%E0%B8%A7%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%82%E0%B8%B2+%E0%B8%9A%E0%B8%A3%E0%B8%A3%E0%B8%A2%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%AA%E0%B8%87%E0%B8%9A HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 27.03it/s]
+INFO:     127.0.0.1:58623 - "GET /api/home?q=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%A7%E0%B8%B4%E0%B8%A7%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%82%E0%B8%B2+%E0%B8%9A%E0%B8%A3%E0%B8%A3%E0%B8%A2%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2%E0%B8%9A%E0%B8%AA%E0%B8%87%E0%B8%9A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52103 - "OPTIONS /api/accommodations/52 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58623 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52103 - "GET /api/accommodations/52 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52103 - "OPTIONS /api/accommodations/52/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58623 - "OPTIONS /api/accommodations?district=%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B9%84%E0%B8%97%E0%B8%A2&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59434 - "OPTIONS /api/accommodations/52/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53901 - "OPTIONS /api/accommodations/52/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58660 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59434 - "POST /api/accommodations/52/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:52103 - "GET /api/accommodations/52/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60798 - "GET /api/accommodations/52/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58623 - "GET /api/accommodations?district=%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B9%84%E0%B8%97%E0%B8%A2&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62684 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62684 - "OPTIONS /api/home?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%A1%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+1%2C000+%E0%B8%9A%E0%B8%B2%E0%B8%97 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 44.43it/s]
+INFO:     127.0.0.1:62684 - "GET /api/home?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%A1%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+1%2C000+%E0%B8%9A%E0%B8%B2%E0%B8%97 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53194 - "OPTIONS /api/accommodations/57 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51379 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51379 - "GET /api/accommodations/57 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51379 - "OPTIONS /api/accommodations/57/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53194 - "OPTIONS /api/accommodations/57/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52895 - "OPTIONS /api/accommodations/57/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62732 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53194 - "POST /api/accommodations/57/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:51379 - "GET /api/accommodations/57/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50941 - "GET /api/accommodations/57/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53344 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64507 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64507 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 49.44it/s]
+INFO:     127.0.0.1:64507 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62116 - "OPTIONS /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59026 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59026 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59026 - "OPTIONS /api/accommodations/49/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62116 - "OPTIONS /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "OPTIONS /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59805 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62116 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:56915 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59026 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54111 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%94 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 47.62it/s]
+INFO:     127.0.0.1:60988 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%94 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 51.26it/s]
+INFO:     127.0.0.1:60988 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 53.42it/s]
+INFO:     127.0.0.1:60988 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 56.10it/s]
+INFO:     127.0.0.1:60988 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "OPTIONS /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 55.56it/s]
+INFO:     127.0.0.1:52778 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 21.75it/s]
+INFO:     127.0.0.1:58938 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "GET /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58938 - "GET /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60395 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58938 - "POST /api/accommodations/50/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:61959 - "GET /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65078 - "GET /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60988 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%80%E0%B8%A7 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 55.54it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%80%E0%B8%A7 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 55.55it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 55.54it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 58.82it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 56.75it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 39.55it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+ HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 49.99it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+1000 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 50.00it/s]
+INFO:     127.0.0.1:52228 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+1000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52228 - "OPTIONS /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+1000 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 51.25it/s]
+INFO:     127.0.0.1:52228 - "GET /api/home?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+1000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+100 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 52.08it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%B1%E0%B8%94+%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99+100 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 49.97it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B9%83%E0%B8%81 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 31.36it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%A2 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 51.76it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%A2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 58.16it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99100 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 60.56it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%99100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 45.16it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 53.77it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 52.63it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2%E0%B8%9A HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 55.56it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2%E0%B8%9A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/home?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2%E0%B8%9A HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 52.63it/s]
+INFO:     127.0.0.1:61457 - "GET /api/home?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2%E0%B8%9A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61457 - "OPTIONS /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 47.32it/s]
+INFO:     127.0.0.1:61457 - "GET /api/search/suggestions?q=%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%80%E0%B8%81%E0%B8%B4%E0%B8%991000+%E0%B9%80%E0%B8%87%E0%B8%B5%E0%B8%A2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64908 - "OPTIONS /api/search/suggestions?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 49.98it/s]
+INFO:     127.0.0.1:64908 - "GET /api/search/suggestions?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64908 - "OPTIONS /api/search/suggestions?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%87 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 55.54it/s]
+INFO:     127.0.0.1:64908 - "GET /api/search/suggestions?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%87 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64908 - "OPTIONS /api/home?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 57.12it/s]
+INFO:     127.0.0.1:58048 - "OPTIONS /api/search/suggestions?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87 HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]INFO:     127.0.0.1:64908 - "GET /api/home?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87 HTTP/1.1" 200 OK
+Batches: 100%|##########| 1/1 [00:00<00:00, 32.69it/s]
+INFO:     127.0.0.1:58048 - "GET /api/search/suggestions?q=%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B9%80%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58666 - "OPTIONS /api/search/nearby HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 52.63it/s]
+INFO:     127.0.0.1:58666 - "POST /api/search/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60046 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:58264 - "OPTIONS /api/me/personalization HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60304 - "OPTIONS /api/me/search-history-setting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65205 - "OPTIONS /api/me/preferences HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65205 - "GET /api/me/personalization HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60304 - "GET /api/me/search-history-setting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58264 - "GET /api/me/preferences HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "OPTIONS /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "OPTIONS /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63995 - "GET /api/accommodations/57 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59304 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63995 - "POST /api/accommodations/57/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:60789 - "GET /api/accommodations/57/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61624 - "GET /api/accommodations/57/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "OPTIONS /api/favorites/57 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49661 - "POST /api/favorites/57 HTTP/1.1" 201 Created
+INFO:     127.0.0.1:56710 - "OPTIONS /api/favorites/51 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56710 - "POST /api/favorites/51 HTTP/1.1" 201 Created
+INFO:     127.0.0.1:56710 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55157 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56710 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:62242 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51058 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49569 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49569 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49569 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51058 - "GET /api/accommodations/51 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56710 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51058 - "POST /api/accommodations/51/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:55157 - "GET /api/accommodations/51/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62242 - "GET /api/accommodations/51/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49569 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50867 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50867 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65173 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63973 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65173 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:51434 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61318 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50867 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "DELETE /api/favorites/51 HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:59585 - "DELETE /api/favorites/57 HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:59585 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "POST /api/accommodations/57/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:59585 - "OPTIONS /api/accommodations/55/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "POST /api/accommodations/55/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:59585 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:61160 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "GET /api/favorites HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "OPTIONS /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63951 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "OPTIONS /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59090 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63951 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:59366 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50525 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61160 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55538 - "OPTIONS /api/accommodations/49/reviews?sort=lowest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55538 - "GET /api/accommodations/49/reviews?sort=lowest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55538 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64566 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58110 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63750 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57182 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63750 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:58802 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56159 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58110 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62182 - "OPTIONS /api/accommodations/49/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62182 - "GET /api/accommodations/49/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49456 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49670 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49670 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:52349 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49670 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52349 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49456 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64928 - "OPTIONS /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "OPTIONS /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64928 - "GET /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64928 - "OPTIONS /api/accommodations/50/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "OPTIONS /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64928 - "OPTIONS /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "POST /api/accommodations/50/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:56918 - "GET /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "OPTIONS /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+ERROR:asyncio:Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+INFO:     127.0.0.1:64928 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64928 - "GET /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64928 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49456 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61566 - "GET /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52349 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65442 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61566 - "POST /api/accommodations/50/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:50103 - "GET /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50235 - "GET /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56413 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52349 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:56159 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49670 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64928 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49456 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57182 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "GET /api/accommodations/50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54415 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "POST /api/accommodations/50/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:56517 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54415 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:56159 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61328 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57182 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "GET /api/accommodations/50/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54614 - "GET /api/accommodations/50/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65386 - "OPTIONS /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59848 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59848 - "GET /api/accommodations/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59848 - "OPTIONS /api/accommodations/49/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59848 - "OPTIONS /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56160 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:59848 - "GET /api/accommodations/49/nearby HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65386 - "GET /api/accommodations?district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page_size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56160 - "OPTIONS /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59848 - "GET /api/image-categories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59848 - "GET /api/accommodations/49/reviews?sort=newest&page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61164 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:57579 - "OPTIONS /api/accommodations/49/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57579 - "POST /api/accommodations/49/events HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:57579 - "OPTIONS /api/favorites/49 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57579 - "POST /api/favorites/49 HTTP/1.1" 201 Created
+INFO:     127.0.0.1:57579 - "DELETE /api/favorites/49 HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:65051 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65051 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58517 - "OPTIONS /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "OPTIONS /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58414 - "OPTIONS /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54853 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58414 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54853 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56160 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52211 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64013 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65523 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64182 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64182 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64182 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64182 - "OPTIONS /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64182 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64182 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61180 - "GET /api/accommodations?type=hotel&sort=recommended&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61182 - "GET /api/accommodations?type=resort&sort=recommended&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61184 - "GET /api/accommodations?type=homestay&sort=recommended&page_size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61775 - "GET /api/accommodations/51/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60034 - "GET /api/accommodations/52/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60036 - "GET /api/accommodations/54/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60039 - "GET /api/accommodations/56/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60041 - "GET /api/accommodations/53/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60043 - "GET /api/accommodations/58/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63359 - "GET /api/accommodations/57/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63361 - "GET /api/accommodations/55/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63366 - "GET /api/accommodations/49/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63368 - "GET /api/accommodations/50/images HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59671 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55278 - "OPTIONS /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64257 - "OPTIONS /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51174 - "OPTIONS /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61527 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51174 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64257 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61527 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55278 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60581 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54076 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60789 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61661 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62743 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62743 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62743 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B3&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57579 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62743 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B3&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62743 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49251 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49422 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "OPTIONS /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "OPTIONS /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51698 - "OPTIONS /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61186 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61186 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51698 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49994 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "OPTIONS /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54702 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59343 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56708 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56708 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59343 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56249 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63371 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61002 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64308 - "OPTIONS /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57299 - "OPTIONS /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63453 - "OPTIONS /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65440 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65440 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57299 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63453 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64308 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "OPTIONS /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62770 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52570 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63714 - "OPTIONS /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63714 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58174 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58487 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58487 - "GET /api/districts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60923 - "GET /api/accommodation-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55392 - "GET /api/amenities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54361 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54476 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54476 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54476 - "GET /api/home HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55012 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55012 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55012 - "OPTIONS /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55012 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55012 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59243 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55012 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59243 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55012 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&district=%E0%B9%80%E0%B8%99%E0%B8%B4%E0%B8%99%E0%B8%A1%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&district=%E0%B9%80%E0%B8%99%E0%B8%B4%E0%B8%99%E0%B8%A1%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&district=%E0%B9%80%E0%B8%99%E0%B8%B4%E0%B8%99%E0%B8%A1%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87&district=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B9%8C&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81&district=%E0%B9%80%E0%B8%99%E0%B8%B4%E0%B8%99%E0%B8%A1%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87&district=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B9%8C&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%99%E0%B8%B4%E0%B8%99%E0%B8%A1%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87&district=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B9%8C&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B9%80%E0%B8%99%E0%B8%B4%E0%B8%99%E0%B8%A1%E0%B8%B0%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87&district=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B9%8C&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B9%8C&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B9%8C&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B9%8C&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A3&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53469 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60929 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61103 - "OPTIONS /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87&page=1&page_size=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58970 - "GET /api/districts/counts?type=hotel&price_min=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61103 - "GET /api/accommodations?type=hotel&price_min=200&sort=recommended&district=%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87&page=1&page_size=6 HTTP/1.1" 200 OK

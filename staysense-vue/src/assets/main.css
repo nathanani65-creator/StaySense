@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background: #f5f4fb;
+}
+
+/* hero cover image + bottom-up gradient overlay, shared by Home and Hotels hero */
+.hero-cover {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url('/hero-cover.jpg');
+  background-size: cover;
+  background-position: center 40%;
+}
+.hero-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    0deg,
+    rgba(15, 13, 42, 0.97) 0%,
+    rgba(19, 16, 54, 0.95) 30%,
+    rgba(28, 24, 82, 0.88) 55%,
+    rgba(45, 38, 105, 0.72) 72%,
+    rgba(64, 54, 190, 0.46) 85%,
+    rgba(74, 58, 168, 0.2) 95%,
+    rgba(74, 58, 168, 0.06) 100%
+  );
+}
+
+/* range slider thumb styling (native input[type=range] needs vendor prefixes) */
+input[type='range'].price-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+input[type='range'].price-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #4f46e5;
+  border: 2.5px solid #fff;
+  box-shadow: 0 0 0 1px #4f46e5;
+  cursor: pointer;
+  margin-top: 0;
+}
+input[type='range'].price-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #4f46e5;
+  border: 2.5px solid #fff;
+  box-shadow: 0 0 0 1px #4f46e5;
+  cursor: pointer;
+}

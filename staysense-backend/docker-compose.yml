@@ -1,0 +1,34 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: staysense_phitsanulok
+    ports:
+      - "3306:3306"
+    volumes:
+      - staysense_mysql_data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/1_schema.sql
+      - ./schema_addendum.sql:/docker-entrypoint-initdb.d/2_addendum.sql
+      - ./schema_addendum_2.sql:/docker-entrypoint-initdb.d/3_addendum.sql
+      - ./schema_addendum_3.sql:/docker-entrypoint-initdb.d/4_addendum.sql
+      - ./schema_addendum_4.sql:/docker-entrypoint-initdb.d/5_addendum.sql
+      - ./schema_addendum_5.sql:/docker-entrypoint-initdb.d/6_addendum.sql
+      - ./schema_addendum_6.sql:/docker-entrypoint-initdb.d/7_addendum.sql
+      - ./schema_addendum_7.sql:/docker-entrypoint-initdb.d/8_addendum.sql
+      - ./schema_addendum_8.sql:/docker-entrypoint-initdb.d/9_addendum.sql
+      - ./schema_addendum_9.sql:/docker-entrypoint-initdb.d/10_addendum.sql
+      - ./schema_addendum_10.sql:/docker-entrypoint-initdb.d/11_addendum.sql
+      - ./schema_addendum_11.sql:/docker-entrypoint-initdb.d/12_addendum.sql
+      - ./schema_addendum_12.sql:/docker-entrypoint-initdb.d/13_addendum.sql
+      - ./schema_addendum_13.sql:/docker-entrypoint-initdb.d/14_addendum.sql
+      - ./schema_addendum_14.sql:/docker-entrypoint-initdb.d/15_addendum.sql
+      - ./schema_addendum_15.sql:/docker-entrypoint-initdb.d/16_addendum.sql
+      - ./schema_addendum_16.sql:/docker-entrypoint-initdb.d/17_addendum.sql
+      - ./schema_addendum_17.sql:/docker-entrypoint-initdb.d/18_addendum.sql
+      - ./schema_addendum_18.sql:/docker-entrypoint-initdb.d/19_addendum.sql
+      - ./schema_addendum_19.sql:/docker-entrypoint-initdb.d/20_addendum.sql
+
+volumes:
+  staysense_mysql_data:
