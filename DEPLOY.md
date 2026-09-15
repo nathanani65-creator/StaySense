@@ -1,8 +1,12 @@
-# Deploying StaySense Phitsanulok (Railway + Vercel, free tier)
+# Deploying StaySense Phitsanulok (Railway + Netlify, free tier)
 
 Three pieces to stand up: MySQL, the FastAPI backend, and the Vue frontend.
 The config files below are already in the repo — this doc is the manual
 steps (account creation, dashboard clicks) that only you can do.
+
+**Frontend is already live at https://staysense-pitlok.netlify.app/** — it
+just can't reach a backend yet, because step 1 (Railway) hasn't been done.
+That's the part still missing.
 
 ## 1. Railway — MySQL + backend
 
@@ -21,8 +25,7 @@ steps (account creation, dashboard clicks) that only you can do.
    - `DATABASE_URL` = `mysql+pymysql://<user>:<password>@<host>:<port>/<database>`
      (take the values from the MySQL service's Connect tab — note the
      `mysql+pymysql://` prefix, not Railway's default `mysql://`)
-   - `CORS_ORIGINS` = leave as `http://localhost:5173` for now, we'll add
-     the Vercel URL after step 2
+   - `CORS_ORIGINS` = `http://localhost:5173,https://staysense-pitlok.netlify.app`
    - `JWT_SECRET_KEY` = a random string (ask me to generate one, or run
      `python -c "import secrets; print(secrets.token_hex(32))"`)
    - `PUBLIC_BASE_URL` = your Railway backend URL once it's deployed (looks
@@ -40,21 +43,30 @@ steps (account creation, dashboard clicks) that only you can do.
    (~1-2 min) because it downloads the multilingual-e5-small embedding
    model.
 
-## 2. Vercel — frontend
+## 2. Netlify — frontend (already deployed — just needs to point at the backend)
 
-1. Go to https://vercel.com and sign up (GitHub login).
-2. **Add New → Project** → import the same GitHub repo.
-3. Set **Root Directory** to `staysense-vue`. Vercel auto-detects Vite
-   (build command `npm run build`, output `dist`) — leave those as-is.
-4. Add an environment variable: `VITE_API_BASE_URL` = your Railway backend
-   URL from step 1.4 (the `PUBLIC_BASE_URL` one).
-5. Deploy. Vercel gives you a URL like
-   `https://staysense-phitsanulok.vercel.app` — **that's the link for
-   Nifty PM.**
-6. Go back to Railway's backend service → Variables → update `CORS_ORIGINS`
-   to include this Vercel URL (comma-separated with localhost), e.g.
-   `http://localhost:5173,https://staysense-phitsanulok.vercel.app`, and
-   redeploy the backend once more.
+Your site is live at `https://staysense-pitlok.netlify.app/`, built with
+the manual **Base directory / Build command / Publish directory** settings
+you set in the dashboard. Once Railway's backend has a public URL (step
+1.4's `PUBLIC_BASE_URL`):
+
+1. Netlify site → **Site configuration → Environment variables → Add a
+   variable**: `VITE_API_BASE_URL` = your Railway backend URL.
+2. **Deploys** tab → **Trigger deploy → Clear cache and deploy site.**
+   (Vite bakes env vars in at *build* time, not read at runtime — a plain
+   redeploy without clearing cache may skip rebuilding and keep the old
+   value, so use "Clear cache and deploy site" specifically.)
+3. That's the link for Nifty PM: **https://staysense-pitlok.netlify.app/**
+
+One more thing worth fixing while you're in there: page refreshes on a
+route like `/hotels` or `/accommodations/49` will 404 right now, because
+Netlify doesn't know to serve `index.html` for those paths (Vue Router
+handles routing client-side). The `staysense-vue/netlify.toml` already in
+this repo has the fix (a catch-all redirect to `index.html`) — it'll take
+effect automatically the next time this repo is pushed to GitHub and
+Netlify rebuilds from it. Until then you can also add it manually: Site
+configuration → Build & deploy → Post processing → **Redirects and rewrite
+rules** → add `/*` → `/index.html` with status `200`.
 
 ## Known limitations of this free setup
 
@@ -67,5 +79,5 @@ steps (account creation, dashboard clicks) that only you can do.
   request after a while may take a few seconds while it wakes up and
   reloads the embedding model into memory.
 - Both free tiers are usage-limited (Railway gives a monthly credit,
-  Vercel's Hobby plan is free but has fair-use limits) — fine for a thesis
-  demo, not for real public traffic.
+  Netlify's free plan is free but has fair-use/bandwidth limits) — fine for
+  a thesis demo, not for real public traffic.
