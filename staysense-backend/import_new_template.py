@@ -109,6 +109,20 @@ def clip(value, maxlen):
     return value if len(value) <= maxlen else None
 
 
+IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp", ".gif")
+
+
+def is_real_image_url(url):
+    """The sheet's "ลิงก์รูปภาพ" column occasionally has a hotel *listing
+    page* pasted in by mistake (e.g. an agoda.com/.../hotel/all/... page)
+    instead of a direct image link — that renders as a broken <img>, so
+    skip anything that isn't clearly an actual image file."""
+    if not url:
+        return False
+    path = url.split("?", 1)[0].lower()
+    return path.endswith(IMAGE_EXTENSIONS)
+
+
 def to_5_scale(value):
     """Sheet ratings are on Booking.com's 0-10 scale; reviews.rating has a
     CHECK (rating BETWEEN 1 AND 5) constraint, matching every other rating
@@ -272,6 +286,9 @@ def main():
         acc = code_to_acc.get(code)
         url = clean(row.get("ลิงก์รูปภาพ"))
         if not acc or not url or args.dry_run:
+            continue
+        if not is_real_image_url(url):
+            errors.append(f"[รูปภาพ] {code}: ข้าม URL ที่ไม่ใช่รูปภาพจริง (เป็นลิงก์หน้าเว็บ): {url[:80]}...")
             continue
         try:
             if acc.id and acc.id not in img_cleared:
