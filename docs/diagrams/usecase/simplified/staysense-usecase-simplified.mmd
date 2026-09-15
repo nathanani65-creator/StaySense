@@ -1,0 +1,142 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "20px"}} }%%
+flowchart TD
+
+AGuest["🧍 Guest"]:::actor
+AMember["🧑‍💼 Registered User"]:::actor
+AAdmin["🛠️ Administrator"]:::actor
+AMaps["🗺️ Google Maps Service<br/>(External System)"]:::external
+
+subgraph SYS["StaySense Phitsanulok System Boundary"]
+
+  subgraph SEARCH["Search and Browsing Functions"]
+    direction TB
+    S1(["Register"]):::searchUC
+    S2(["Login"]):::searchUC
+    S3(["Search Accommodations"]):::searchUC
+    S4(["Apply Search Filters<br/>(Type, District, Price, Guests, Amenities, Location)"]):::searchUC
+    S5(["View Search Results"]):::searchUC
+    S6(["View Accommodation Details"]):::searchUC
+    S7(["View Accommodation on Map<br/>and Nearby Places"]):::searchUC
+    S8(["Share Accommodation"]):::searchUC
+  end
+
+  subgraph SEMANTIC["Semantic Search Function"]
+    direction TB
+    SM1(["Semantic Search Processing<br/>(Convert to Vector, Calculate Similarity, Rank Results)"]):::semanticUC
+  end
+
+  subgraph AUTHG["Authentication and Authorization"]
+    direction TB
+    A1(["Authenticate User"]):::authUC
+    A2(["Authenticate Administrator"]):::authUC
+  end
+
+  subgraph MEMBERFN["Member Functions"]
+    direction TB
+    M1(["Manage Profile"]):::memberUC
+    M2(["Manage Favorite Accommodations"]):::memberUC
+    M3(["View Search History and<br/>Recently Viewed"]):::memberUC
+    M4(["Compare Accommodations"]):::memberUC
+    M5(["View Personalized Recommendations"]):::memberUC
+    M6(["Logout"]):::memberUC
+  end
+
+  subgraph ADMINFN["Administration Functions"]
+    direction TB
+    AD1(["Access Administrator Dashboard"]):::adminUC
+    AD2(["Manage Accommodations"]):::adminUC
+    AD3(["Add Accommodation"]):::adminUC
+    AD4(["Edit Accommodation"]):::adminUC
+    AD5(["Delete or Unpublish Accommodation"]):::adminUC
+    AD6(["Manage Reference Data<br/>(Types, Room Types, Amenities)"]):::adminUC
+    AD7(["Manage Accommodation<br/>and Room Images"]):::adminUC
+    AD8(["Manage Locations<br/>and Nearby Places"]):::adminUC
+    AD9(["Manage and Verify<br/>Data Sources"]):::adminUC
+    AD10(["Manage Users and Roles"]):::adminUC
+    AD11(["Update Semantic Search Index"]):::semanticUC
+  end
+
+end
+
+%% =========================================================
+%% Associations
+%% =========================================================
+AGuest --- S1
+AGuest --- S2
+AGuest --- S3
+
+AMember --- M1
+AMember --- M2
+AMember --- M3
+AMember --- M4
+AMember --- M5
+AMember --- M6
+
+AAdmin --- S2
+AAdmin --- AD1
+AAdmin --- AD2
+AAdmin --- AD6
+AAdmin --- AD7
+AAdmin --- AD8
+AAdmin --- AD9
+AAdmin --- AD10
+AAdmin --- AD11
+
+AMaps --- S4
+AMaps --- S7
+
+%% =========================================================
+%% Generalization
+%% =========================================================
+AMember ==>|Generalization| AGuest
+
+%% =========================================================
+%% <<include>>
+%% =========================================================
+S3 -.->|«include»| SM1
+M1 -.->|«include»| A1
+M2 -.->|«include»| A1
+M3 -.->|«include»| A1
+M4 -.->|«include»| A1
+M5 -.->|«include»| A1
+AD1 -.->|«include»| A2
+AD2 -.->|«include»| A2
+AD10 -.->|«include»| A2
+AD3 -.->|«include»| AD11
+AD4 -.->|«include»| AD11
+AD5 -.->|«include»| AD11
+
+%% =========================================================
+%% <<extend>>
+%% =========================================================
+S4 -.->|«extend»| S3
+S6 -.->|«extend»| S5
+S7 -.->|«extend»| S6
+S8 -.->|«extend»| S6
+M2 -.->|«extend»| S6
+AD3 -.->|«extend»| AD2
+AD4 -.->|«extend»| AD2
+AD5 -.->|«extend»| AD2
+
+%% =========================================================
+%% Layout Order (invisible links - vertical stacking only)
+%% =========================================================
+S1 ~~~ S2 ~~~ S3 ~~~ S4 ~~~ S5 ~~~ S6 ~~~ S7 ~~~ S8
+A1 ~~~ A2
+M1 ~~~ M2 ~~~ M3 ~~~ M4 ~~~ M5 ~~~ M6
+AD1 ~~~ AD2 ~~~ AD3 ~~~ AD4 ~~~ AD5 ~~~ AD6 ~~~ AD7 ~~~ AD8 ~~~ AD9 ~~~ AD10 ~~~ AD11
+S8 ~~~ SM1
+SM1 ~~~ A1
+A2 ~~~ M1
+M6 ~~~ AD1
+
+%% =========================================================
+%% Style Definitions
+%% =========================================================
+classDef actor fill:#EAECEE,stroke:#34495E,stroke-width:1.5px,color:#1B2631
+classDef external fill:#EAECEE,stroke:#7F8C8D,stroke-width:1.5px,stroke-dasharray:4 3,color:#1B2631
+classDef searchUC fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef semanticUC fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef memberUC fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef adminUC fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authUC fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05

@@ -1,0 +1,79 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+Start((Start)):::startend
+Access[/Access StaySense Phitsanulok Website/]:::guest
+SelectType{Select User Type}:::decisionNode
+GuestMode[Guest Mode: Browse Without Login]:::guest
+ToAuthRL[↪ Fig. 3.3 — Login and Authentication]:::connector
+ToAuthReg[↪ Fig. 3.3 — Register]:::connector
+End((End)):::startend
+
+Start --> Access --> SelectType
+SelectType -->|Guest| GuestMode
+SelectType -->|Registered User| ToAuthRL
+SelectType -->|Administrator| ToAuthRL
+GuestMode -->|Register| ToAuthReg
+
+subgraph SEARCH["Semantic Search Workflow"]
+    direction TB
+    EnterQuery[/Enter Natural-Language Query/]:::guest
+    SelectFilters[/Select Search Filters: Type, District, Price, Guests, Amenities, Atmosphere/]:::guest
+    UseLocation[/Use Current Location - Optional/]:::guest
+    SubmitSearch[Submit Search]:::guest
+    ValidateInput{Validate Search Input}:::decisionNode
+    InputError[Display Search Input Error Message]:::errorNode
+    SendAPI[Send Query to Back-end API]:::semantic
+    QueryPrep[[Query Preprocessing]]:::semantic
+    ConvertVector[[Convert Query to Vector - Embedding]]:::semantic
+    RetrieveVectors[(Retrieve Accommodation Vectors)]:::database
+    CalcSimilarity[[Calculate Semantic Similarity]]:::semantic
+    ApplyFilters[[Apply Search Filters]]:::semantic
+    RankResults[[Rank Search Results by Relevance]]:::semantic
+    ReturnResults[Return Search Results]:::semantic
+    HasResults{Matching Accommodation Found?}:::decisionNode
+    NoResults[Display 'No Matching Accommodation Found']:::errorNode
+    DisplayResults[/Display Search Results/]:::guest
+end
+
+FromMember[↩ From Fig. 3.4 — Open Member Functions: Search Accommodation]:::connector
+FromMember --> EnterQuery
+GuestMode --> EnterQuery
+
+EnterQuery --> SelectFilters --> UseLocation --> SubmitSearch --> ValidateInput
+ValidateInput -->|No| InputError --> EnterQuery
+ValidateInput -->|Yes| SendAPI --> QueryPrep --> ConvertVector --> RetrieveVectors --> CalcSimilarity --> ApplyFilters --> RankResults --> ReturnResults --> HasResults
+HasResults -->|No| NoResults --> EnterQuery
+HasResults -->|Yes| DisplayResults
+
+subgraph DETAILS["Accommodation Details"]
+    direction TB
+    SelectAccommodation[Select Accommodation]:::guest
+    ViewDetails[/View Accommodation Details/]:::guest
+    ViewMap[View Location on Map]:::guest
+    ShareInfo[Share Accommodation Information]:::guest
+    FinishViewing[Finish Viewing Information]:::guest
+end
+
+ToFavorites[↪ Fig. 3.4 — Add to Favorites]:::connector
+
+DisplayResults --> SelectAccommodation --> ViewDetails
+ViewDetails --> ViewMap
+ViewDetails --> ShareInfo
+ViewDetails --> ToFavorites
+ViewMap --> FinishViewing
+ShareInfo --> FinishViewing
+FinishViewing --> End
+
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

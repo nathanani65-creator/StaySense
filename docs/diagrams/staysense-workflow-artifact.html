@@ -1,0 +1,808 @@
+<title>StaySense Workflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F8;
+  --surface:#FFFFFF;
+  --surface-2:#EBEEF2;
+  --ink:#1B2631;
+  --ink-soft:#54626F;
+  --ink-faint:#8895A3;
+  --border:#DCE2E9;
+
+  --accent:#7D3C98;
+  --accent-soft:#F1E6F6;
+  --blue:#2E86C1;   --blue-soft:#DDEEFB;
+  --green:#229954;  --green-soft:#E1F6EA;
+  --orange:#CA6F1E; --orange-soft:#FBEADB;
+  --yellow:#B8930A; --yellow-soft:#FBF3D2;
+  --grey:#5D6D7E;   --grey-soft:#E7E9EC;
+  --red:#C0392B;    --red-soft:#FBE1DE;
+  --startend:#1E8449; --startend-soft:#DFF5E7;
+
+  --shadow: 0 1px 2px rgba(27,38,49,.04), 0 8px 24px -12px rgba(27,38,49,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161C;
+    --surface:#1A2029;
+    --surface-2:#212833;
+    --ink:#E7ECF1;
+    --ink-soft:#AAB6C2;
+    --ink-faint:#6E7A87;
+    --border:#2B333E;
+
+    --accent:#CB9BE3;
+    --accent-soft:#2E2438;
+    --blue:#7EC0F2;   --blue-soft:#1B2C3C;
+    --green:#7FDB9F;  --green-soft:#16301F;
+    --orange:#F3B074; --orange-soft:#3A2712;
+    --yellow:#E7CE73; --yellow-soft:#382F10;
+    --grey:#A6B2BF;   --grey-soft:#232B34;
+    --red:#F2988C;    --red-soft:#3A1D1A;
+    --startend:#7FDB9F; --startend-soft:#16301F;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161C;
+  --surface:#1A2029;
+  --surface-2:#212833;
+  --ink:#E7ECF1;
+  --ink-soft:#AAB6C2;
+  --ink-faint:#6E7A87;
+  --border:#2B333E;
+
+  --accent:#CB9BE3;
+  --accent-soft:#2E2438;
+  --blue:#7EC0F2;   --blue-soft:#1B2C3C;
+  --green:#7FDB9F;  --green-soft:#16301F;
+  --orange:#F3B074; --orange-soft:#3A2712;
+  --yellow:#E7CE73; --yellow-soft:#382F10;
+  --grey:#A6B2BF;   --grey-soft:#232B34;
+  --red:#F2988C;    --red-soft:#3A1D1A;
+  --startend:#7FDB9F; --startend-soft:#16301F;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'IBM Plex Sans Thai','Sarabun',system-ui,sans-serif;
+  padding-inline:20px;
+  padding-block:40px 80px;
+  line-height:1.7;
+}
+.wrap{max-width:980px;margin:0 auto}
+
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:500;
+  display:flex; align-items:center; gap:10px;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--accent)}
+
+h1{
+  font-family:'Sarabun',sans-serif;
+  font-weight:700;
+  font-size:clamp(26px,4vw,38px);
+  line-height:1.25;
+  margin:10px 0 6px;
+  text-wrap:balance;
+  letter-spacing:-.01em;
+}
+h1 .en{
+  display:block;
+  font-size:.46em;
+  font-weight:500;
+  color:var(--ink-soft);
+  margin-top:6px;
+  letter-spacing:0;
+}
+.lede{
+  color:var(--ink-soft);
+  font-size:15.5px;
+  max-width:68ch;
+  margin:14px 0 26px;
+}
+
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:12.5px; font-weight:500;
+  padding:6px 12px 6px 9px;
+  border-radius:100px;
+  border:1px solid var(--border);
+  background:var(--surface);
+}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+section{margin-top:52px}
+.sectionhead{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.sectionnum{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px; color:var(--accent); font-weight:500;
+}
+h2{
+  font-family:'Sarabun',sans-serif;
+  font-size:21px; font-weight:600; margin:0;
+  text-wrap:balance;
+}
+h2 .en{color:var(--ink-faint); font-weight:400; font-size:14px; margin-left:10px}
+h3{font-family:'Sarabun',sans-serif;font-size:16.5px;font-weight:600;margin:26px 0 8px;color:var(--ink)}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+}
+
+/* diagram viewer */
+.diagram-card{padding:0;overflow:hidden}
+.diagram-toolbar{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:12px 18px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface-2);
+  font-size:13px; color:var(--ink-soft);
+}
+.diagram-toolbar .en{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-faint)}
+.diagram-scroll{
+  overflow:auto;
+  max-height:78vh;
+  padding:28px;
+  background:
+    radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0) 0 0/22px 22px,
+    var(--surface);
+}
+.diagram-scroll pre.mermaid{margin:0}
+.diagram-scroll svg{display:block}
+
+/* legend */
+.legend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.legend-item{
+  display:flex; gap:12px; align-items:flex-start;
+  padding:14px 16px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+.legend-shape{
+  flex:none; width:34px;height:26px;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:2px;
+}
+.legend-shape svg{width:100%;height:100%}
+.legend-text b{display:block;font-size:14px;font-weight:600;margin-bottom:2px}
+.legend-text span{font-size:13px;color:var(--ink-soft)}
+
+.color-table{width:100%;border-collapse:collapse;font-size:14px}
+.color-table td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.color-table tr:last-child td{border-bottom:none}
+.swatch{display:inline-flex;align-items:center;gap:9px;font-weight:500;white-space:nowrap}
+.swatch i{width:14px;height:14px;border-radius:5px;display:inline-block;border:1px solid rgba(0,0,0,.08)}
+.color-table .desc{color:var(--ink-soft)}
+
+/* steps */
+.step{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:16px;
+  padding-block:20px;
+  border-top:1px solid var(--border);
+}
+.step:first-child{border-top:none}
+.step-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px; font-weight:500;
+  color:var(--accent);
+  padding-top:2px;
+}
+.step h4{font-size:16px;font-weight:600;margin:0 0 4px}
+.step h4 .en{font-weight:400;color:var(--ink-faint);font-size:12.5px;font-family:'IBM Plex Mono',monospace;display:block;margin-top:2px}
+.step p{margin:6px 0;color:var(--ink-soft);font-size:14.5px}
+.flow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px 12px;
+  color:var(--ink-soft);
+  overflow-x:auto;
+  white-space:pre;
+  margin:8px 0;
+}
+.branch{
+  display:flex; gap:8px; align-items:center;
+  font-size:13.5px; margin:4px 0; color:var(--ink-soft);
+}
+.tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; font-weight:600;
+  padding:2px 8px; border-radius:5px;
+}
+.tag.yes{background:var(--green-soft);color:var(--green)}
+.tag.no{background:var(--red-soft);color:var(--red)}
+
+.note{
+  margin-top:14px;
+  padding:12px 16px;
+  border-radius:10px;
+  background:var(--accent-soft);
+  border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  font-size:13.5px;
+  color:var(--ink);
+}
+
+.arch-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.arch-table th{
+  text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--ink-faint); font-weight:600; padding:8px; border-bottom:1px solid var(--border);
+}
+.arch-table td{padding:10px 8px;border-bottom:1px solid var(--border);color:var(--ink-soft);vertical-align:top}
+.arch-table td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
+
+code.inline{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.88em;
+  background:var(--surface-2);
+  padding:1px 6px;
+  border-radius:5px;
+  color:var(--ink);
+}
+pre.codeblock{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  overflow-x:auto;
+  color:var(--ink-soft);
+}
+
+footer{
+  margin-top:64px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+  font-size:12.5px;
+  color:var(--ink-faint);
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+
+@media (max-width:640px){
+  .step{grid-template-columns:24px 1fr}
+  .arch-table{display:block;overflow-x:auto}
+}
+</style>
+
+<div class="wrap">
+
+  <div class="eyebrow">Workflow Diagram — Semantic Search System</div>
+  <h1>StaySense Phitsanulok
+    <span class="en">ระบบสารสนเทศเพื่อการบริหารจัดการและค้นหาที่พักด้วยเทคนิคการค้นหาเชิงความหมาย</span>
+  </h1>
+  <p class="lede">
+    เอกสารนี้อธิบาย Workflow Diagram แบบภาพรวมของระบบ StaySense Phitsanulok ซึ่งพัฒนาโดยใช้ Vue.js/Vite (Front-end),
+    Node.js/Express.js (Back-end), MySQL (ฐานข้อมูล) และ Python (Semantic Search) ครอบคลุมผู้ใช้งาน 3 กลุ่ม
+    คือ ผู้เยี่ยมชม สมาชิก และผู้ดูแลระบบ — ไม่มีฟังก์ชันเจ้าของที่พักหรือการจองที่พักในระบบนี้
+  </p>
+
+  <div class="chiprow">
+    <span class="chip"><i style="background:var(--blue)"></i>Guest — ผู้เยี่ยมชม</span>
+    <span class="chip"><i style="background:var(--green)"></i>Registered User — สมาชิก</span>
+    <span class="chip"><i style="background:var(--orange)"></i>Administrator — ผู้ดูแลระบบ</span>
+    <span class="chip"><i style="background:var(--yellow)"></i>Auth / Validation</span>
+    <span class="chip"><i style="background:var(--accent)"></i>Semantic Search</span>
+    <span class="chip"><i style="background:var(--grey)"></i>Database</span>
+    <span class="chip"><i style="background:var(--red)"></i>Error</span>
+    <span class="chip"><i style="background:var(--startend)"></i>Start / End</span>
+  </div>
+
+  <section id="diagram">
+    <div class="sectionhead">
+      <span class="sectionnum">01</span>
+      <h2>แผนภาพ Workflow Diagram แบบภาพรวม <span class="en">Overall Workflow Diagram</span></h2>
+    </div>
+    <div class="card diagram-card">
+      <div class="diagram-toolbar">
+        <span>เลื่อนดูภาพในกรอบด้านล่าง (เลื่อนแนวตั้ง/แนวนอน หรือซูมด้วย Ctrl/Cmd + scroll) — จัดเรียงจากบนลงล่าง</span>
+        <span class="en">flowchart TD</span>
+      </div>
+      <div class="diagram-scroll">
+<pre class="mermaid">
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+TitleNode["StaySense Phitsanulok: Accommodation Management and Semantic Search System"]:::title
+
+Start((Start)):::startend
+Access[/Access StaySense Phitsanulok Website/]:::guest
+SelectType{Select User Type}:::decisionNode
+GuestMode[Guest Mode: Browse Without Login]:::guest
+End((End)):::startend
+
+Start --> Access --> SelectType
+SelectType -->|Guest| GuestMode
+SelectType -->|Registered User| EnterCred
+SelectType -->|Administrator| EnterCred
+
+subgraph SEARCH["Semantic Search Workflow"]
+    direction TB
+    EnterQuery[/Enter Natural-Language Query/]:::guest
+    SelectFilters[/Select Search Filters: Type, District, Price, Guests, Amenities, Atmosphere/]:::guest
+    UseLocation[/Use Current Location - Optional/]:::guest
+    SubmitSearch[Submit Search]:::guest
+    ValidateInput{Validate Search Input}:::decisionNode
+    InputError[Display Search Input Error Message]:::errorNode
+    SendAPI[Send Query to Back-end API]:::semantic
+    QueryPrep[[Query Preprocessing]]:::semantic
+    ConvertVector[[Convert Query to Vector - Embedding]]:::semantic
+    RetrieveVectors[(Retrieve Accommodation Vectors)]:::database
+    CalcSimilarity[[Calculate Semantic Similarity]]:::semantic
+    ApplyFilters[[Apply Search Filters]]:::semantic
+    RankResults[[Rank Search Results by Relevance]]:::semantic
+    ReturnResults[Return Search Results]:::semantic
+    HasResults{Matching Accommodation Found?}:::decisionNode
+    NoResults[Display 'No Matching Accommodation Found']:::errorNode
+    DisplayResults[/Display Search Results/]:::guest
+end
+
+EnterQuery --> SelectFilters --> UseLocation --> SubmitSearch --> ValidateInput
+ValidateInput -->|No| InputError --> EnterQuery
+ValidateInput -->|Yes| SendAPI --> QueryPrep --> ConvertVector --> RetrieveVectors --> CalcSimilarity --> ApplyFilters --> RankResults --> ReturnResults --> HasResults
+HasResults -->|No| NoResults --> EnterQuery
+HasResults -->|Yes| DisplayResults
+
+GuestMode --> EnterQuery
+MemberDash --> EnterQuery
+
+SelectAccommodation[Select Accommodation]:::guest
+ViewDetails[/View Accommodation Details/]:::guest
+ViewMap[View Location on Map]:::guest
+ShareInfo[Share Accommodation Information]:::guest
+FinishViewing[Finish Viewing Information]:::guest
+
+DisplayResults --> SelectAccommodation --> ViewDetails
+ViewDetails --> ViewMap
+ViewDetails --> ShareInfo
+ViewDetails --> AddFav
+ViewMap --> FinishViewing
+ShareInfo --> FinishViewing
+FinishViewing --> End
+
+subgraph REGISTER["Member Registration Workflow"]
+    direction TB
+    RegStart[Register]:::guest
+    EnterAccountInfo[/Enter Account Information/]:::guest
+    ValidateAccount[Validate Account Information]:::authNode
+    AccountExists{Account Already Exists?}:::decisionNode
+    DupMsg[Display Duplicate Account Message]:::errorNode
+    CreateAccount[Create User Account]:::authNode
+    StoreAccount[(Store Account in Database)]:::database
+    RegSuccess[Registration Successful]:::authNode
+end
+
+GuestMode -->|Register| RegStart
+RegStart --> EnterAccountInfo --> ValidateAccount --> AccountExists
+AccountExists -->|Yes| DupMsg --> EnterAccountInfo
+AccountExists -->|No| CreateAccount --> StoreAccount --> RegSuccess --> EnterCred
+
+subgraph AUTH["Login and Authentication"]
+    direction TB
+    EnterCred[/Enter Username and Password/]:::authNode
+    Authenticate[[Authenticate User]]:::authNode
+    AuthSuccess{Authentication Successful?}:::decisionNode
+    LoginError[Display Login Error]:::errorNode
+    CheckRole[[Check User Role]]:::authNode
+end
+
+EnterCred --> Authenticate --> AuthSuccess
+AuthSuccess -->|No| LoginError --> EnterCred
+AuthSuccess -->|Yes| CheckRole
+CheckRole -->|Registered User| MemberDash
+CheckRole -->|Administrator| CheckPermission
+
+subgraph MEMBER["Registered User Functions"]
+    direction TB
+    MemberDash[Open Member Functions]:::member
+    AddFav[Add to Favorites]:::member
+    CheckLoginStatus{Check Login Status}:::decisionNode
+    RedirectLogin[Redirect to Login]:::authNode
+    CheckExistingFav[[Check Existing Favorite]]:::member
+    SaveFav[(Save Favorite to Database)]:::database
+    FavSuccess[Display Success Message]:::member
+    ViewFav[View and Remove Favorites]:::member
+    ViewHistory[View Search History]:::member
+    ViewRecent[View Recently Viewed Accommodations]:::member
+    SelectCompare[Select Accommodations to Compare]:::member
+    AddCompare[Add to Comparison List]:::member
+    CompareInfo[[Compare Accommodation Information]]:::member
+    DisplayCompare[/Display Comparison Results/]:::member
+    RetrieveHistFav[[Retrieve Search History and Favorites]]:::member
+    AnalyzeInfo[[Analyze Relevant Accommodation Information]]:::member
+    GenerateRec[[Generate Recommendations]]:::member
+    DisplayRec[/Display Recommended Accommodations/]:::member
+    ManageProfile[Manage Personal Information]:::member
+    LogoutR[Logout]:::member
+end
+
+AddFav --> CheckLoginStatus
+CheckLoginStatus -->|Not Logged In| RedirectLogin --> EnterCred
+CheckLoginStatus -->|Logged In| CheckExistingFav --> SaveFav --> FavSuccess
+
+MemberDash --> AddFav
+MemberDash --> ViewFav
+MemberDash --> ViewHistory
+MemberDash --> ViewRecent
+MemberDash --> SelectCompare --> AddCompare --> CompareInfo --> DisplayCompare
+MemberDash --> RetrieveHistFav --> AnalyzeInfo --> GenerateRec --> DisplayRec
+MemberDash --> ManageProfile
+MemberDash --> LogoutR --> End
+
+subgraph ADMIN["Administrator Functions"]
+    direction TB
+    CheckPermission{Check Administrator Permission}:::decisionNode
+    AdminDash[Open Administrator Dashboard]:::admin
+    SelectMgmt[Select Management Function]:::admin
+    ManageAccom[Manage Accommodation Data]:::admin
+    ManageTypes[Manage Accommodation Types]:::admin
+    ManageRoomTypes[Manage Room Types]:::admin
+    ManageAmenities[Manage Amenities]:::admin
+    ManageImages[Manage Accommodation Images]:::admin
+    ManageLocation[Manage Coordinates and Landmarks]:::admin
+    ManageSource[Manage Data Source Information]:::admin
+    ManageUsers[Manage Users and Permissions]:::admin
+    UpdateSemanticData[[Update Semantic Search Index]]:::semantic
+    FinishMgmt[Finish Data Management]:::admin
+    LogoutA[Logout]:::admin
+end
+
+AccessDenied[Display Access Denied Message]:::errorNode
+CheckPermission -->|Granted| AdminDash --> SelectMgmt
+CheckPermission -->|Denied| AccessDenied --> End
+SelectMgmt --> ManageAccom --> SelectOp
+SelectMgmt --> ManageTypes --> FinishMgmt
+SelectMgmt --> ManageRoomTypes --> FinishMgmt
+SelectMgmt --> ManageAmenities --> FinishMgmt
+SelectMgmt --> ManageImages --> FinishMgmt
+SelectMgmt --> ManageLocation --> FinishMgmt
+SelectMgmt --> ManageSource --> FinishMgmt
+SelectMgmt --> ManageUsers --> FinishMgmt
+SelectMgmt --> ReviewInfo
+SelectMgmt --> UpdateSemanticData --> FinishMgmt
+FinishMgmt --> LogoutA --> End
+
+subgraph CRUD["Manage Accommodation Data Workflow - CRUD"]
+    direction TB
+    SelectOp{Select Operation}:::decisionNode
+    ViewAccomList[View Accommodation Records]:::admin
+
+    AddAccom[Add Accommodation]:::admin
+    EnterAccomInfo[/Enter Accommodation Information/]:::admin
+    AddRoomTypesStep[Add Room Types]:::admin
+    AddAmenitiesStep[Add Amenities]:::admin
+    UploadImages[Upload Images]:::admin
+    AddLocationStep[Add Location and Coordinates]:::admin
+    AddPlaces[Add Important Places and Distances]:::admin
+    RecordSource[Record Data Source and Verification Date]:::admin
+    ValidateInfo{Information Valid?}:::decisionNode
+    ValidationMsg[Display Validation Message]:::errorNode
+    SaveToDB[(Save Accommodation to MySQL Database)]:::database
+    PrepText[[Prepare Accommodation Text]]:::semantic
+    ConvertAccomVector[[Convert Accommodation Data to Vector]]:::semantic
+    SaveVector[(Save or Update Accommodation Vector)]:::database
+    PublishAccom[Publish Accommodation Information]:::admin
+    AddSuccess[Display Success Message]:::admin
+
+    EditAccom[Edit Accommodation]:::admin
+    RetrieveExisting[(Retrieve Existing Information)]:::database
+    ModifyInfo[Modify Accommodation Information]:::admin
+    ValidateUpdated[Validate Updated Information]:::admin
+    UpdateDB[(Update MySQL Database)]:::database
+    CheckSearchable{Searchable Information Changed?}:::decisionNode
+    UpdateSemantic[[Update Semantic Search Data]]:::semantic
+    ConvertUpdatedVector[[Convert Updated Information to Vector]]:::semantic
+    ReplaceVector[(Replace Existing Accommodation Vector)]:::database
+    FinishUpdate[Finish Update Process]:::admin
+
+    DeleteAccom[Delete or Unpublish Accommodation]:::admin
+    ConfirmDelete{Confirm Action?}:::decisionNode
+    ChangeStatus[Change Accommodation Status or Delete Record]:::admin
+    UpdateDB2[(Update Database)]:::database
+    RemoveVector[(Remove or Disable Semantic Search Vector)]:::database
+    DeleteSuccess[Display Success Message]:::admin
+end
+
+SelectOp -->|Add| AddAccom
+SelectOp -->|View| ViewAccomList --> FinishMgmt
+SelectOp -->|Edit| EditAccom
+SelectOp -->|Delete / Unpublish| DeleteAccom
+
+AddAccom --> EnterAccomInfo --> AddRoomTypesStep --> AddAmenitiesStep --> UploadImages --> AddLocationStep --> AddPlaces --> RecordSource --> ValidateInfo
+ValidateInfo -->|No| ValidationMsg --> EnterAccomInfo
+ValidateInfo -->|Yes| SaveToDB --> PrepText --> ConvertAccomVector --> SaveVector --> PublishAccom --> AddSuccess --> FinishMgmt
+
+EditAccom --> RetrieveExisting --> ModifyInfo --> ValidateUpdated --> UpdateDB --> CheckSearchable
+CheckSearchable -->|Yes| UpdateSemantic --> ConvertUpdatedVector --> ReplaceVector --> FinishUpdate
+CheckSearchable -->|No| FinishUpdate
+FinishUpdate --> FinishMgmt
+
+DeleteAccom --> ConfirmDelete
+ConfirmDelete -->|No| ManageAccom
+ConfirmDelete -->|Yes| ChangeStatus --> UpdateDB2 --> RemoveVector --> DeleteSuccess --> FinishMgmt
+
+subgraph VERIFY["Data Quality Verification Workflow"]
+    direction TB
+    ReviewInfo[Review Accommodation Information]:::admin
+    CheckSource[Check Data Source: Google Maps, Official Website, Facebook Page, Booking Sites]:::admin
+    CompareMultiSource[Compare Information from Multiple Sources]:::admin
+    CheckAccuracy[Check Accuracy]:::admin
+    CheckCompleteness[Check Completeness]:::admin
+    CheckConsistency[Check Consistency]:::admin
+    CheckDuplicate[Check Duplicate Information]:::admin
+    CheckCurrent[Check Current Information]:::admin
+    RecordURL[Record Source URL]:::admin
+    RecordDate[Record Verification Date]:::admin
+    SaveVerified[(Save Verified Information)]:::database
+end
+
+ReviewInfo --> CheckSource --> CompareMultiSource --> CheckAccuracy --> CheckCompleteness --> CheckConsistency --> CheckDuplicate --> CheckCurrent --> RecordURL --> RecordDate --> SaveVerified --> FinishMgmt
+
+subgraph TECH["System Architecture and Component Integration"]
+    direction TB
+    UI[User Interface: Vue.js and Vite]:::tech
+    API[Send Request through API]:::tech
+    Backend[Back-end Server: Node.js and Express.js]:::tech
+    MySQLDB[(MySQL Database)]:::database
+    PythonSvc[Python Semantic Search Service]:::semantic
+    ReturnProcessed[Return Processed Results]:::tech
+    DisplayUI[/Display Results on User Interface/]:::tech
+end
+
+UI --> API --> Backend
+Backend -.-> MySQLDB
+Backend -.-> PythonSvc
+Backend --> ReturnProcessed --> DisplayUI --> UI
+
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631
+</pre>
+      </div>
+    </div>
+    <p class="note">
+      ไฟล์โค้ดต้นฉบับ (<code class="inline">staysense-workflow.mmd</code>) และภาพความละเอียดสูงสำหรับนำเสนอ
+      (<code class="inline">staysense-workflow.svg</code>, <code class="inline">staysense-workflow.png</code>)
+      ถูกส่งให้แยกต่างหากในแชท สามารถเปิดแก้ไขไฟล์ .mmd ต่อได้ทันทีด้วย VS Code หรือ Mermaid Live Editor
+    </p>
+  </section>
+
+  <section id="notation">
+    <div class="sectionhead">
+      <span class="sectionnum">02</span>
+      <h2>สัญลักษณ์ที่ใช้ <span class="en">Flowchart Notation</span></h2>
+    </div>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <div class="legend-shape"><svg viewBox="0 0 60 40"><rect x="4" y="8" width="52" height="24" rx="12" fill="var(--startend-soft)" stroke="var(--startend)" stroke-width="2"/></svg></div>
+        <div class="legend-text"><b>Terminator</b><span>จุดเริ่มต้น (Start) และจุดสิ้นสุด (End) ของกระบวนการ</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-shape"><svg viewBox="0 0 60 40"><rect x="4" y="8" width="52" height="24" fill="var(--surface-2)" stroke="var(--ink-faint)" stroke-width="1.5"/></svg></div>
+        <div class="legend-text"><b>Process</b><span>ขั้นตอนการประมวลผลทั่วไป เช่น Create User Account</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-shape"><svg viewBox="0 0 60 40"><polygon points="14,8 56,8 46,32 4,32" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/></svg></div>
+        <div class="legend-text"><b>Input / Output</b><span>การรับข้อมูลหรือแสดงผล เช่น Enter Natural-Language Query</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-shape"><svg viewBox="0 0 60 40"><polygon points="30,4 56,20 30,36 4,20" fill="var(--surface)" stroke="var(--grey)" stroke-width="1.5"/></svg></div>
+        <div class="legend-text"><b>Decision</b><span>จุดตัดสินใจ มีเงื่อนไข Yes/No กำกับทุกเส้นทางออก</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-shape"><svg viewBox="0 0 60 40"><path d="M4 12 a26 6 0 0 1 52 0 v16 a26 6 0 0 1 -52 0 z" fill="var(--grey-soft)" stroke="var(--ink-faint)" stroke-width="1.5"/></svg></div>
+        <div class="legend-text"><b>Database</b><span>ฐานข้อมูล MySQL หรือข้อมูลเวกเตอร์ที่จัดเก็บถาวร</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-shape"><svg viewBox="0 0 60 40"><rect x="4" y="8" width="52" height="24" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/><line x1="10" y1="8" x2="10" y2="32" stroke="var(--accent)" stroke-width="1.5"/><line x1="50" y1="8" x2="50" y2="32" stroke="var(--accent)" stroke-width="1.5"/></svg></div>
+        <div class="legend-text"><b>Subprocess</b><span>กระบวนการย่อยของ Semantic Search เช่น Query Preprocessing</span></div>
+      </div>
+    </div>
+
+    <h3>ความหมายของเส้นเชื่อม <span style="color:var(--ink-faint);font-weight:400;font-size:13px">Connectors</span></h3>
+    <table class="color-table">
+      <tr><td style="width:160px"><span class="swatch">— <b style="font-weight:600">เส้นทึบ</b></span></td><td class="desc">ลำดับการทำงานปกติ (Sequence Flow) ไหลจากขั้นตอนหนึ่งไปยังอีกขั้นตอนหนึ่งภายในระบบเดียวกัน</td></tr>
+      <tr><td><span class="swatch">┄ <b style="font-weight:600">เส้นประ</b></span></td><td class="desc">การเรียกใช้บริการระหว่างองค์ประกอบทางเทคนิค (ในกล่อง System Architecture) เช่น Back-end เรียกใช้ MySQL หรือ Python Service</td></tr>
+      <tr><td><span class="tag yes">YES</span> / <span class="tag no">NO</span></td><td class="desc">ป้ายกำกับบนเส้นที่ออกจากสัญลักษณ์ Decision ทุกจุด เพื่อระบุเงื่อนไขอย่างชัดเจน</td></tr>
+      <tr><td><span class="swatch" style="font-family:'IBM Plex Mono',monospace;font-size:12px">Guest / Admin</span></td><td class="desc">ป้ายกำกับทางเลือกเมนู (Multi-way Branch) เช่น ที่ออกจาก Select User Type หรือ Select Operation ไม่ใช่เงื่อนไข Yes/No เพราะเป็นจุดแยกเมนู ไม่ใช่จุดตรวจสอบเงื่อนไข</td></tr>
+    </table>
+  </section>
+
+  <section id="colors">
+    <div class="sectionhead">
+      <span class="sectionnum">03</span>
+      <h2>สีที่ใช้แบ่งกลุ่มการทำงาน <span class="en">Color Coding</span></h2>
+    </div>
+    <table class="color-table">
+      <tr><td><span class="swatch"><i style="background:var(--blue)"></i>ฟ้าอ่อน</span></td><td class="desc">ผู้เยี่ยมชม (Guest) — การค้นหาและดูรายละเอียดที่พักโดยไม่ต้องเข้าสู่ระบบ</td></tr>
+      <tr><td><span class="swatch"><i style="background:var(--green)"></i>เขียวอ่อน</span></td><td class="desc">สมาชิก (Registered User) — รายการโปรด ประวัติการค้นหา การเปรียบเทียบ คำแนะนำ</td></tr>
+      <tr><td><span class="swatch"><i style="background:var(--orange)"></i>ส้มอ่อน</span></td><td class="desc">ผู้ดูแลระบบ (Administrator) — การบริหารจัดการข้อมูลทุกประเภท</td></tr>
+      <tr><td><span class="swatch"><i style="background:var(--yellow)"></i>เหลือง</span></td><td class="desc">การยืนยันตัวตนและตรวจสอบความถูกต้องของข้อมูล (Authentication / Validation)</td></tr>
+      <tr><td><span class="swatch"><i style="background:var(--accent)"></i>ม่วงอ่อน</span></td><td class="desc">กระบวนการค้นหาเชิงความหมาย (Semantic Search) ที่ประมวลผลด้วย Python</td></tr>
+      <tr><td><span class="swatch"><i style="background:var(--grey)"></i>เทา</span></td><td class="desc">ฐานข้อมูล MySQL และข้อมูลเวกเตอร์ (Database)</td></tr>
+      <tr><td><span class="swatch"><i style="background:var(--red)"></i>แดงอ่อน</span></td><td class="desc">ข้อความแจ้งเตือนข้อผิดพลาดหรือข้อมูลไม่ถูกต้อง (Error / Invalid Data)</td></tr>
+      <tr><td><span class="swatch"><i style="background:var(--startend)"></i>เขียวเข้ม</span></td><td class="desc">จุดเริ่มต้นและจุดสิ้นสุดของกระบวนการ (Start / End)</td></tr>
+    </table>
+  </section>
+
+  <section id="walkthrough">
+    <div class="sectionhead">
+      <span class="sectionnum">04</span>
+      <h2>คำอธิบายลำดับการทำงาน <span class="en">Step-by-Step Walkthrough</span></h2>
+    </div>
+
+    <div class="card" style="padding:4px 24px">
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h4>เข้าสู่ระบบและเลือกประเภทผู้ใช้งาน <span class="en">Access &amp; Select User Type</span></h4>
+          <p>ผู้ใช้งานเข้าสู่เว็บไซต์ StaySense Phitsanulok ระบบให้เลือกประเภทผู้ใช้งาน 3 ทาง</p>
+          <div class="flow">Start → Access Website → Select User Type</div>
+          <div class="branch"><b>Guest</b> — เข้าสู่โหมดผู้เยี่ยมชม ค้นหาได้ทันทีโดยไม่ต้องเข้าสู่ระบบ</div>
+          <div class="branch"><b>Registered User / Administrator</b> — ไปยังหน้าจอเข้าสู่ระบบร่วมกัน</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h4>กระบวนการค้นหาเชิงความหมาย <span class="en">Semantic Search Workflow</span></h4>
+          <p>ใช้ร่วมกันทั้งผู้เยี่ยมชมและสมาชิก ผู้ใช้พิมพ์คำค้นหาภาษาธรรมชาติ พร้อมกำหนดเงื่อนไขเพิ่มเติมได้</p>
+          <div class="flow">Enter Query → Select Filters → Use Location (Optional) → Submit → Validate Input</div>
+          <div class="branch"><span class="tag no">NO</span> ข้อมูลไม่ถูกต้อง → แสดงข้อความแจ้งเตือน → กลับไปแก้ไขคำค้นหา</div>
+          <div class="branch"><span class="tag yes">YES</span> ส่งเข้าสู่ Back-end API</div>
+          <div class="flow">Send to API → Query Preprocessing → Convert Query to Vector → Retrieve Accommodation Vectors → Calculate Semantic Similarity → Apply Filters → Rank Results → Return Results</div>
+          <div class="branch"><span class="tag no">NO</span> ไม่พบผลลัพธ์ → "No Matching Accommodation Found" → แก้ไขคำค้นหาใหม่</div>
+          <div class="branch"><span class="tag yes">YES</span> Display Search Results</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h4>การเรียกดูรายละเอียดที่พัก <span class="en">Accommodation Details</span></h4>
+          <p>เลือกที่พักจากผลการค้นหาเพื่อดูรายละเอียดครบถ้วน (ที่อยู่ พิกัด ราคา ห้องพัก สิ่งอำนวยความสะดวก รูปภาพ บรรยากาศ ช่องทางติดต่อ แหล่งที่มา สถานที่สำคัญและระยะทาง)</p>
+          <div class="flow">Select Accommodation → View Details → View Location on Map / Share Information</div>
+          <p>ผู้เยี่ยมชมและสมาชิกดูแผนที่และแบ่งปันข้อมูลได้ทั้งคู่ ส่วนการบันทึกรายการโปรดต้องเข้าสู่ระบบก่อน</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h4>การสมัครสมาชิก <span class="en">Member Registration</span></h4>
+          <div class="flow">Register → Enter Account Information → Validate → Account Already Exists?</div>
+          <div class="branch"><span class="tag yes">YES</span> แสดงข้อความบัญชีซ้ำ → กลับไปกรอกแบบฟอร์มใหม่</div>
+          <div class="branch"><span class="tag no">NO</span> Create Account → Store in Database → Registration Successful → ไปหน้า Login</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div>
+          <h4>การเข้าสู่ระบบ <span class="en">Login &amp; Authentication</span></h4>
+          <div class="flow">Enter Username/Password → Authenticate → Authentication Successful?</div>
+          <div class="branch"><span class="tag no">NO</span> Display Login Error → กรอกใหม่</div>
+          <div class="branch"><span class="tag yes">YES</span> Check User Role → แยกเป็นสมาชิก หรือ ผู้ดูแลระบบ</div>
+          <div class="flow">Administrator → Check Administrator Permission</div>
+          <div class="branch"><span class="tag no">DENIED</span> Display Access Denied Message → End</div>
+          <div class="branch"><span class="tag yes">GRANTED</span> เปิด Administrator Dashboard</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div>
+          <h4>ฟังก์ชันของสมาชิก <span class="en">Registered User Functions</span></h4>
+          <p>เพิ่ม/ลบรายการโปรด ดูประวัติการค้นหา ดูที่พักที่เปิดดูล่าสุด เปรียบเทียบที่พัก รับคำแนะนำ จัดการข้อมูลส่วนตัว และออกจากระบบ</p>
+          <div class="flow">Add to Favorites → Check Login Status</div>
+          <div class="branch"><b>Not Logged In</b> → Redirect to Login → Login → กลับมาทำรายการต่อ</div>
+          <div class="branch"><b>Logged In</b> → Check Existing Favorite → Save to Database → Display Success</div>
+          <div class="flow">Select Accommodations → Add to Comparison List → Compare Information → Display Comparison Results</div>
+          <div class="flow">Retrieve Search History &amp; Favorites → Analyze Information → Generate Recommendations → Display Recommended Accommodations</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">07</div>
+        <div>
+          <h4>การบริหารจัดการข้อมูลที่พัก (CRUD) <span class="en">Manage Accommodation Data</span></h4>
+          <div class="flow">Select Operation → Add / View / Edit / Delete-Unpublish</div>
+          <p><b>Add</b> — กรอกข้อมูลที่พัก ห้องพัก สิ่งอำนวยความสะดวก รูปภาพ พิกัด สถานที่สำคัญ แหล่งข้อมูล → Information Valid?</p>
+          <div class="branch"><span class="tag no">NO</span> Display Validation Message → แก้ไขข้อมูล</div>
+          <div class="branch"><span class="tag yes">YES</span> Save to MySQL → Prepare Text → Convert to Vector → Save Vector → Publish → Display Success</div>
+          <p><b>Edit</b> — แก้ไขข้อมูล → Update MySQL Database → Searchable Information Changed?</p>
+          <div class="branch"><span class="tag yes">YES</span> อัปเดตเวกเตอร์การค้นหาใหม่</div>
+          <div class="branch"><span class="tag no">NO</span> จบกระบวนการโดยไม่ต้องแปลงเวกเตอร์ใหม่</div>
+          <p><b>Delete / Unpublish</b> — Confirm Action?</p>
+          <div class="branch"><span class="tag no">NO</span> กลับไปหน้าบริหารจัดการที่พัก</div>
+          <div class="branch"><span class="tag yes">YES</span> เปลี่ยนสถานะหรือลบข้อมูล → อัปเดตฐานข้อมูล → ลบ/ปิดใช้งานเวกเตอร์การค้นหา</div>
+          <div class="note">แนะนำให้ใช้สถานะ "Unpublished / Inactive" แทนการลบถาวร เพื่อป้องกันข้อมูลสูญหายและรองรับการตรวจสอบย้อนหลัง</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">08</div>
+        <div>
+          <h4>การตรวจสอบคุณภาพและความเป็นปัจจุบันของข้อมูล <span class="en">Data Quality Verification</span></h4>
+          <div class="flow">Review Information → Check Data Source (Google Maps, Official Website, Facebook, Booking Sites) → Compare Multiple Sources → Check Accuracy → Completeness → Consistency → Duplicate → Currency → Record Source URL &amp; Verification Date → Save Verified Information</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">09</div>
+        <div>
+          <h4>สถาปัตยกรรมทางเทคนิค <span class="en">System Architecture</span></h4>
+          <p>แสดงแยกไว้ต่างหากในแผนภาพเพื่อไม่ให้เส้นเชื่อมยาวพาดผ่านผังหลักจนอ่านยาก โดยสอดคล้องกับขั้นตอนในผังหลักดังนี้</p>
+          <table class="arch-table">
+            <tr><th>องค์ประกอบ</th><th>สอดคล้องกับขั้นตอนใดในแผนภาพหลัก</th></tr>
+            <tr><td>Vue.js / Vite</td><td>ทุกจุด Input/Output เช่น Enter Query, Display Search Results</td></tr>
+            <tr><td>Node.js / Express.js</td><td>รับคำร้องขอ ตรวจสอบข้อมูล (Validate...) และประสานงานกับฐานข้อมูล/Python</td></tr>
+            <tr><td>MySQL Database</td><td>โหนดรูปทรงกระบอกทั้งหมด เช่น Store Account, Save Accommodation, Save Favorite</td></tr>
+            <tr><td>Python Semantic Search</td><td>โหนด Subprocess เช่น Query Preprocessing, Convert to Vector, Calculate Similarity</td></tr>
+            <tr><td>Return / Display Results</td><td>Return Search Results → Display Search Results</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">10</div>
+        <div>
+          <h4>เส้นทางสิ้นสุดการทำงาน <span class="en">Termination Paths</span></h4>
+          <div class="branch">Guest → Finish Viewing Information → <b>End</b></div>
+          <div class="branch">Registered User → Logout → <b>End</b></div>
+          <div class="branch">Administrator → Finish Data Management → Logout → <b>End</b></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="usage">
+    <div class="sectionhead">
+      <span class="sectionnum">05</span>
+      <h2>การนำไปใช้งาน <span class="en">Editing &amp; Export</span></h2>
+    </div>
+    <div class="card" style="padding:20px 24px">
+      <p style="margin-top:0;color:var(--ink-soft)">เปิดไฟล์ <code class="inline">staysense-workflow.mmd</code> แก้ไขต่อได้ทันทีด้วย VS Code (ส่วนขยาย Mermaid), Mermaid Live Editor (mermaid.live) หรือ CLI ด้านล่าง:</p>
+      <pre class="codeblock">npx @mermaid-js/mermaid-cli -i staysense-workflow.mmd -o staysense-workflow.svg -b white
+npx @mermaid-js/mermaid-cli -i staysense-workflow.mmd -o staysense-workflow.png -b white -w 3200</pre>
+      <p style="color:var(--ink-soft);margin-bottom:0">แผนภาพนี้ไม่มีความสัมพันธ์แบบ <code class="inline">&lt;&lt;include&gt;&gt;</code> หรือ <code class="inline">&lt;&lt;extend&gt;&gt;</code> (สัญลักษณ์ของ Use Case Diagram) และไม่มีฟังก์ชันเจ้าของที่พักหรือการจองที่พักปรากฏอยู่ในแผนภาพ</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>StaySense Phitsanulok — Workflow Documentation</span>
+    <span class="en">Vue.js + Vite · Node.js + Express.js · MySQL · Python Semantic Search</span>
+  </footer>
+
+</div>

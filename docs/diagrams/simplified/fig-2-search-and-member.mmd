@@ -1,0 +1,62 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "15px"}} }%%
+flowchart TD
+
+FromOverview[↩ From Fig. 1 — Guest Mode / Registered User Login]:::connector
+
+EnterQuery[/Enter Natural-Language Query and Search Filters/]:::guest
+SubmitSearch[Submit Search]:::guest
+ValidateInput{Search Input Valid?}:::decisionNode
+InputError[Display Input Error Message]:::errorNode
+SemanticProcess[[Convert Query to Vector, Calculate Semantic Similarity, Apply Filters and Rank Results]]:::semantic
+HasResults{Matching Accommodation Found?}:::decisionNode
+NoResults[Display 'No Matching Accommodation Found']:::errorNode
+DisplayResults[/Display Search Results/]:::guest
+ViewDetails[/View Accommodation Details/]:::guest
+ViewMap[View Location on Map]:::guest
+ShareInfo[Share Accommodation Information]:::guest
+CheckLogin{Registered User Logged In?}:::decisionNode
+FinishViewing[Finish Viewing Information]:::guest
+ToLogin[↪ Fig. 3 — Login or Register to Continue]:::connector
+End((End)):::startend
+
+FromOverview --> EnterQuery
+EnterQuery --> SubmitSearch --> ValidateInput
+ValidateInput -->|No| InputError --> EnterQuery
+ValidateInput -->|Yes| SemanticProcess --> HasResults
+HasResults -->|No| NoResults --> EnterQuery
+HasResults -->|Yes| DisplayResults --> ViewDetails
+ViewDetails --> ViewMap --> FinishViewing --> End
+ViewDetails --> ShareInfo --> FinishViewing
+ViewDetails --> CheckLogin
+CheckLogin -->|No| ToLogin
+
+subgraph MEMBER["Registered User Functions"]
+    direction TB
+    Favorites[Save and Manage Favorites]:::member
+    History[View Search History and Recently Viewed]:::member
+    Compare[Compare Selected Accommodations]:::member
+    Recommend[View Personalized Recommendations]:::member
+    Profile[Manage Personal Information]:::member
+    Logout[Logout]:::member
+end
+
+CheckLogin -->|Yes| Favorites
+CheckLogin -->|Yes| History
+CheckLogin -->|Yes| Compare
+CheckLogin -->|Yes| Recommend
+CheckLogin -->|Yes| Profile
+Favorites --> Logout
+History --> Logout
+Compare --> Logout
+Recommend --> Logout
+Profile --> Logout
+Logout --> End
+
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

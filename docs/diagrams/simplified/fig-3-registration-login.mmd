@@ -1,0 +1,46 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "15px"}} }%%
+flowchart TD
+
+FromOverview[↩ From Fig. 1 — Select User Type: Registered User / Administrator]:::connector
+FromFig2[↩ From Fig. 2 — Member Feature Requires Login]:::connector
+
+subgraph REGISTER["Member Registration"]
+    direction TB
+    RegStart[Register]:::guest
+    EnterAccountInfo[/Enter Account Information/]:::guest
+    AccountExists{Account Already Exists?}:::decisionNode
+    DupMsg[Display Duplicate Account Message]:::errorNode
+    CreateAccount[(Create and Store User Account)]:::database
+    RegSuccess[Registration Successful]:::authNode
+end
+
+RegStart --> EnterAccountInfo --> AccountExists
+AccountExists -->|Yes| DupMsg --> EnterAccountInfo
+AccountExists -->|No| CreateAccount --> RegSuccess --> EnterCred
+
+subgraph AUTH["Login and Authentication"]
+    direction TB
+    EnterCred[/Enter Username and Password/]:::authNode
+    AuthSuccess{Authentication Successful?}:::decisionNode
+    LoginError[Display Login Error]:::errorNode
+    CheckRole{Check User Role}:::decisionNode
+end
+
+FromOverview --> EnterCred
+FromOverview -.->|New User| RegStart
+FromFig2 --> EnterCred
+EnterCred --> AuthSuccess
+AuthSuccess -->|No| LoginError --> EnterCred
+AuthSuccess -->|Yes| CheckRole
+
+ToMember[↪ Fig. 2 — Semantic Search and Member Functions]:::connector
+ToAdmin[↪ Fig. 4 — Administrator Data Management]:::connector
+CheckRole -->|Registered User| ToMember
+CheckRole -->|Administrator| ToAdmin
+
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

@@ -1,0 +1,54 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+FromGuestReg[↩ From Fig. 3.2 — Guest Mode: Register]:::connector
+FromSelectType[↩ From Fig. 3.2 — Select User Type: Registered User / Administrator]:::connector
+
+subgraph REGISTER["Member Registration Workflow"]
+    direction TB
+    RegStart[Register]:::guest
+    EnterAccountInfo[/Enter Account Information/]:::guest
+    ValidateAccount[Validate Account Information]:::authNode
+    AccountExists{Account Already Exists?}:::decisionNode
+    DupMsg[Display Duplicate Account Message]:::errorNode
+    CreateAccount[Create User Account]:::authNode
+    StoreAccount[(Store Account in Database)]:::database
+    RegSuccess[Registration Successful]:::authNode
+end
+
+FromGuestReg --> RegStart
+RegStart --> EnterAccountInfo --> ValidateAccount --> AccountExists
+AccountExists -->|Yes| DupMsg --> EnterAccountInfo
+AccountExists -->|No| CreateAccount --> StoreAccount --> RegSuccess --> EnterCred
+
+subgraph AUTH["Login and Authentication"]
+    direction TB
+    EnterCred[/Enter Username and Password/]:::authNode
+    Authenticate[[Authenticate User]]:::authNode
+    AuthSuccess{Authentication Successful?}:::decisionNode
+    LoginError[Display Login Error]:::errorNode
+    CheckRole[[Check User Role]]:::authNode
+end
+
+FromSelectType --> EnterCred
+EnterCred --> Authenticate --> AuthSuccess
+AuthSuccess -->|No| LoginError --> EnterCred
+AuthSuccess -->|Yes| CheckRole
+
+ToMember[↪ Fig. 3.4 — Open Member Functions]:::connector
+ToAdmin[↪ Fig. 3.5 — Check Administrator Permission]:::connector
+CheckRole -->|Registered User| ToMember
+CheckRole -->|Administrator| ToAdmin
+
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

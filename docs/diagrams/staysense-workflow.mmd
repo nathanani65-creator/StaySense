@@ -1,0 +1,300 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+%% =========================================================
+%% StaySense Phitsanulok: Accommodation Management and
+%% Semantic Search System - Overall Workflow Diagram
+%% =========================================================
+
+TitleNode["StaySense Phitsanulok: Accommodation Management and Semantic Search System"]:::title
+
+Start((Start)):::startend
+Access[/Access StaySense Phitsanulok Website/]:::guest
+SelectType{Select User Type}:::decisionNode
+GuestMode[Guest Mode: Browse Without Login]:::guest
+End((End)):::startend
+
+Start --> Access --> SelectType
+SelectType -->|Guest| GuestMode
+SelectType -->|Registered User| EnterCred
+SelectType -->|Administrator| EnterCred
+
+%% =========================================================
+%% Semantic Search Subprocess (shared by Guest and Registered User)
+%% =========================================================
+subgraph SEARCH["Semantic Search Workflow"]
+    direction TB
+    EnterQuery[/Enter Natural-Language Query/]:::guest
+    SelectFilters[/Select Search Filters: Type, District, Price, Guests, Amenities, Atmosphere/]:::guest
+    UseLocation[/Use Current Location - Optional/]:::guest
+    SubmitSearch[Submit Search]:::guest
+    ValidateInput{Validate Search Input}:::decisionNode
+    InputError[Display Search Input Error Message]:::errorNode
+    SendAPI[Send Query to Back-end API]:::semantic
+    QueryPrep[[Query Preprocessing]]:::semantic
+    ConvertVector[[Convert Query to Vector - Embedding]]:::semantic
+    RetrieveVectors[(Retrieve Accommodation Vectors)]:::database
+    CalcSimilarity[[Calculate Semantic Similarity]]:::semantic
+    ApplyFilters[[Apply Search Filters]]:::semantic
+    RankResults[[Rank Search Results by Relevance]]:::semantic
+    ReturnResults[Return Search Results]:::semantic
+    HasResults{Matching Accommodation Found?}:::decisionNode
+    NoResults[Display 'No Matching Accommodation Found']:::errorNode
+    DisplayResults[/Display Search Results/]:::guest
+end
+
+EnterQuery --> SelectFilters --> UseLocation --> SubmitSearch --> ValidateInput
+ValidateInput -->|No| InputError --> EnterQuery
+ValidateInput -->|Yes| SendAPI --> QueryPrep --> ConvertVector --> RetrieveVectors --> CalcSimilarity --> ApplyFilters --> RankResults --> ReturnResults --> HasResults
+HasResults -->|No| NoResults --> EnterQuery
+HasResults -->|Yes| DisplayResults
+
+GuestMode --> EnterQuery
+MemberDash --> EnterQuery
+
+%% =========================================================
+%% Accommodation Details
+%% =========================================================
+SelectAccommodation[Select Accommodation]:::guest
+ViewDetails[/View Accommodation Details/]:::guest
+ViewMap[View Location on Map]:::guest
+ShareInfo[Share Accommodation Information]:::guest
+FinishViewing[Finish Viewing Information]:::guest
+
+DisplayResults --> SelectAccommodation --> ViewDetails
+ViewDetails --> ViewMap
+ViewDetails --> ShareInfo
+ViewDetails --> AddFav
+ViewMap --> FinishViewing
+ShareInfo --> FinishViewing
+FinishViewing --> End
+
+%% =========================================================
+%% Registration Workflow
+%% =========================================================
+subgraph REGISTER["Member Registration Workflow"]
+    direction TB
+    RegStart[Register]:::guest
+    EnterAccountInfo[/Enter Account Information/]:::guest
+    ValidateAccount[Validate Account Information]:::authNode
+    AccountExists{Account Already Exists?}:::decisionNode
+    DupMsg[Display Duplicate Account Message]:::errorNode
+    CreateAccount[Create User Account]:::authNode
+    StoreAccount[(Store Account in Database)]:::database
+    RegSuccess[Registration Successful]:::authNode
+end
+
+GuestMode -->|Register| RegStart
+RegStart --> EnterAccountInfo --> ValidateAccount --> AccountExists
+AccountExists -->|Yes| DupMsg --> EnterAccountInfo
+AccountExists -->|No| CreateAccount --> StoreAccount --> RegSuccess --> EnterCred
+
+%% =========================================================
+%% Login / Authentication Workflow (shared: Registered User & Administrator)
+%% =========================================================
+subgraph AUTH["Login and Authentication"]
+    direction TB
+    EnterCred[/Enter Username and Password/]:::authNode
+    Authenticate[[Authenticate User]]:::authNode
+    AuthSuccess{Authentication Successful?}:::decisionNode
+    LoginError[Display Login Error]:::errorNode
+    CheckRole[[Check User Role]]:::authNode
+end
+
+EnterCred --> Authenticate --> AuthSuccess
+AuthSuccess -->|No| LoginError --> EnterCred
+AuthSuccess -->|Yes| CheckRole
+CheckRole -->|Registered User| MemberDash
+CheckRole -->|Administrator| CheckPermission
+
+%% =========================================================
+%% Registered User (Member) Functions
+%% =========================================================
+subgraph MEMBER["Registered User Functions"]
+    direction TB
+    MemberDash[Open Member Functions]:::member
+    AddFav[Add to Favorites]:::member
+    CheckLoginStatus{Check Login Status}:::decisionNode
+    RedirectLogin[Redirect to Login]:::authNode
+    CheckExistingFav[[Check Existing Favorite]]:::member
+    SaveFav[(Save Favorite to Database)]:::database
+    FavSuccess[Display Success Message]:::member
+    ViewFav[View and Remove Favorites]:::member
+    ViewHistory[View Search History]:::member
+    ViewRecent[View Recently Viewed Accommodations]:::member
+    SelectCompare[Select Accommodations to Compare]:::member
+    AddCompare[Add to Comparison List]:::member
+    CompareInfo[[Compare Accommodation Information]]:::member
+    DisplayCompare[/Display Comparison Results/]:::member
+    RetrieveHistFav[[Retrieve Search History and Favorites]]:::member
+    AnalyzeInfo[[Analyze Relevant Accommodation Information]]:::member
+    GenerateRec[[Generate Recommendations]]:::member
+    DisplayRec[/Display Recommended Accommodations/]:::member
+    ManageProfile[Manage Personal Information]:::member
+    LogoutR[Logout]:::member
+end
+
+AddFav --> CheckLoginStatus
+CheckLoginStatus -->|Not Logged In| RedirectLogin --> EnterCred
+CheckLoginStatus -->|Logged In| CheckExistingFav --> SaveFav --> FavSuccess
+
+MemberDash --> AddFav
+MemberDash --> ViewFav
+MemberDash --> ViewHistory
+MemberDash --> ViewRecent
+MemberDash --> SelectCompare --> AddCompare --> CompareInfo --> DisplayCompare
+MemberDash --> RetrieveHistFav --> AnalyzeInfo --> GenerateRec --> DisplayRec
+MemberDash --> ManageProfile
+MemberDash --> LogoutR --> End
+
+%% =========================================================
+%% Administrator Functions
+%% =========================================================
+subgraph ADMIN["Administrator Functions"]
+    direction TB
+    CheckPermission{Check Administrator Permission}:::decisionNode
+    AdminDash[Open Administrator Dashboard]:::admin
+    SelectMgmt[Select Management Function]:::admin
+    ManageAccom[Manage Accommodation Data]:::admin
+    ManageTypes[Manage Accommodation Types]:::admin
+    ManageRoomTypes[Manage Room Types]:::admin
+    ManageAmenities[Manage Amenities]:::admin
+    ManageImages[Manage Accommodation Images]:::admin
+    ManageLocation[Manage Coordinates and Landmarks]:::admin
+    ManageSource[Manage Data Source Information]:::admin
+    ManageUsers[Manage Users and Permissions]:::admin
+    UpdateSemanticData[[Update Semantic Search Index]]:::semantic
+    FinishMgmt[Finish Data Management]:::admin
+    LogoutA[Logout]:::admin
+end
+
+AccessDenied[Display Access Denied Message]:::errorNode
+CheckPermission -->|Granted| AdminDash --> SelectMgmt
+CheckPermission -->|Denied| AccessDenied --> End
+SelectMgmt --> ManageAccom --> SelectOp
+SelectMgmt --> ManageTypes --> FinishMgmt
+SelectMgmt --> ManageRoomTypes --> FinishMgmt
+SelectMgmt --> ManageAmenities --> FinishMgmt
+SelectMgmt --> ManageImages --> FinishMgmt
+SelectMgmt --> ManageLocation --> FinishMgmt
+SelectMgmt --> ManageSource --> FinishMgmt
+SelectMgmt --> ManageUsers --> FinishMgmt
+SelectMgmt --> ReviewInfo
+SelectMgmt --> UpdateSemanticData --> FinishMgmt
+FinishMgmt --> LogoutA --> End
+
+%% =========================================================
+%% Manage Accommodation Data (CRUD)
+%% =========================================================
+subgraph CRUD["Manage Accommodation Data Workflow - CRUD"]
+    direction TB
+    SelectOp{Select Operation}:::decisionNode
+    ViewAccomList[View Accommodation Records]:::admin
+
+    AddAccom[Add Accommodation]:::admin
+    EnterAccomInfo[/Enter Accommodation Information/]:::admin
+    AddRoomTypesStep[Add Room Types]:::admin
+    AddAmenitiesStep[Add Amenities]:::admin
+    UploadImages[Upload Images]:::admin
+    AddLocationStep[Add Location and Coordinates]:::admin
+    AddPlaces[Add Important Places and Distances]:::admin
+    RecordSource[Record Data Source and Verification Date]:::admin
+    ValidateInfo{Information Valid?}:::decisionNode
+    ValidationMsg[Display Validation Message]:::errorNode
+    SaveToDB[(Save Accommodation to MySQL Database)]:::database
+    PrepText[[Prepare Accommodation Text]]:::semantic
+    ConvertAccomVector[[Convert Accommodation Data to Vector]]:::semantic
+    SaveVector[(Save or Update Accommodation Vector)]:::database
+    PublishAccom[Publish Accommodation Information]:::admin
+    AddSuccess[Display Success Message]:::admin
+
+    EditAccom[Edit Accommodation]:::admin
+    RetrieveExisting[(Retrieve Existing Information)]:::database
+    ModifyInfo[Modify Accommodation Information]:::admin
+    ValidateUpdated[Validate Updated Information]:::admin
+    UpdateDB[(Update MySQL Database)]:::database
+    CheckSearchable{Searchable Information Changed?}:::decisionNode
+    UpdateSemantic[[Update Semantic Search Data]]:::semantic
+    ConvertUpdatedVector[[Convert Updated Information to Vector]]:::semantic
+    ReplaceVector[(Replace Existing Accommodation Vector)]:::database
+    FinishUpdate[Finish Update Process]:::admin
+
+    DeleteAccom[Delete or Unpublish Accommodation]:::admin
+    ConfirmDelete{Confirm Action?}:::decisionNode
+    ChangeStatus[Change Accommodation Status or Delete Record]:::admin
+    UpdateDB2[(Update Database)]:::database
+    RemoveVector[(Remove or Disable Semantic Search Vector)]:::database
+    DeleteSuccess[Display Success Message]:::admin
+end
+
+SelectOp -->|Add| AddAccom
+SelectOp -->|View| ViewAccomList --> FinishMgmt
+SelectOp -->|Edit| EditAccom
+SelectOp -->|Delete / Unpublish| DeleteAccom
+
+AddAccom --> EnterAccomInfo --> AddRoomTypesStep --> AddAmenitiesStep --> UploadImages --> AddLocationStep --> AddPlaces --> RecordSource --> ValidateInfo
+ValidateInfo -->|No| ValidationMsg --> EnterAccomInfo
+ValidateInfo -->|Yes| SaveToDB --> PrepText --> ConvertAccomVector --> SaveVector --> PublishAccom --> AddSuccess --> FinishMgmt
+
+EditAccom --> RetrieveExisting --> ModifyInfo --> ValidateUpdated --> UpdateDB --> CheckSearchable
+CheckSearchable -->|Yes| UpdateSemantic --> ConvertUpdatedVector --> ReplaceVector --> FinishUpdate
+CheckSearchable -->|No| FinishUpdate
+FinishUpdate --> FinishMgmt
+
+DeleteAccom --> ConfirmDelete
+ConfirmDelete -->|No| ManageAccom
+ConfirmDelete -->|Yes| ChangeStatus --> UpdateDB2 --> RemoveVector --> DeleteSuccess --> FinishMgmt
+
+%% =========================================================
+%% Data Quality and Currency Verification
+%% =========================================================
+subgraph VERIFY["Data Quality Verification Workflow"]
+    direction TB
+    ReviewInfo[Review Accommodation Information]:::admin
+    CheckSource[Check Data Source: Google Maps, Official Website, Facebook Page, Booking Sites]:::admin
+    CompareMultiSource[Compare Information from Multiple Sources]:::admin
+    CheckAccuracy[Check Accuracy]:::admin
+    CheckCompleteness[Check Completeness]:::admin
+    CheckConsistency[Check Consistency]:::admin
+    CheckDuplicate[Check Duplicate Information]:::admin
+    CheckCurrent[Check Current Information]:::admin
+    RecordURL[Record Source URL]:::admin
+    RecordDate[Record Verification Date]:::admin
+    SaveVerified[(Save Verified Information)]:::database
+end
+
+ReviewInfo --> CheckSource --> CompareMultiSource --> CheckAccuracy --> CheckCompleteness --> CheckConsistency --> CheckDuplicate --> CheckCurrent --> RecordURL --> RecordDate --> SaveVerified --> FinishMgmt
+
+%% =========================================================
+%% Technical System Architecture
+%% =========================================================
+subgraph TECH["System Architecture and Component Integration"]
+    direction TB
+    UI[User Interface: Vue.js and Vite]:::tech
+    API[Send Request through API]:::tech
+    Backend[Back-end Server: Node.js and Express.js]:::tech
+    MySQLDB[(MySQL Database)]:::database
+    PythonSvc[Python Semantic Search Service]:::semantic
+    ReturnProcessed[Return Processed Results]:::tech
+    DisplayUI[/Display Results on User Interface/]:::tech
+end
+
+UI --> API --> Backend
+Backend -.-> MySQLDB
+Backend -.-> PythonSvc
+Backend --> ReturnProcessed --> DisplayUI --> UI
+
+%% =========================================================
+%% Style Definitions
+%% =========================================================
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631

@@ -1,0 +1,35 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+FromAdmin[↩ From Fig. 3.5 — Select Management Function: Review Accommodation Information]:::connector
+ToFinishMgmt[↪ Returns to Fig. 3.5 — Finish Data Management]:::connector
+
+subgraph VERIFY["Data Quality Verification Workflow"]
+    direction TB
+    ReviewInfo[Review Accommodation Information]:::admin
+    CheckSource[Check Data Source: Google Maps, Official Website, Facebook Page, Booking Sites]:::admin
+    CompareMultiSource[Compare Information from Multiple Sources]:::admin
+    CheckAccuracy[Check Accuracy]:::admin
+    CheckCompleteness[Check Completeness]:::admin
+    CheckConsistency[Check Consistency]:::admin
+    CheckDuplicate[Check Duplicate Information]:::admin
+    CheckCurrent[Check Current Information]:::admin
+    RecordURL[Record Source URL]:::admin
+    RecordDate[Record Verification Date]:::admin
+    SaveVerified[(Save Verified Information)]:::database
+end
+
+FromAdmin --> ReviewInfo --> CheckSource --> CompareMultiSource --> CheckAccuracy --> CheckCompleteness --> CheckConsistency --> CheckDuplicate --> CheckCurrent --> RecordURL --> RecordDate --> SaveVerified --> ToFinishMgmt
+
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

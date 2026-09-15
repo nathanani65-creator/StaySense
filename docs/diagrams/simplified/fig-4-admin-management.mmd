@@ -1,0 +1,55 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "15px"}} }%%
+flowchart TD
+
+FromOverview[↩ From Fig. 1 / Fig. 3 — Administrator Login]:::connector
+End((End)):::startend
+
+CheckPermission{Check Administrator Permission}:::decisionNode
+AccessDenied[Display Access Denied Message]:::errorNode
+AdminDash[Open Administrator Dashboard]:::admin
+SelectMgmt{Select Management Function}:::decisionNode
+
+FromOverview --> CheckPermission
+CheckPermission -->|Denied| AccessDenied --> End
+CheckPermission -->|Granted| AdminDash --> SelectMgmt
+
+subgraph CRUD["Manage Accommodation Data"]
+    direction TB
+    ManageAccom[Add / Edit Accommodation Information]:::admin
+    ValidateInfo{Information Valid?}:::decisionNode
+    ValidationMsg[Display Validation Message]:::errorNode
+    SaveDB[(Save to MySQL Database)]:::database
+    UpdateVector[[Update Semantic Search Vector]]:::semantic
+    PublishAccom[Publish / Update Accommodation]:::admin
+
+    DeleteAccom[Delete or Unpublish Accommodation]:::admin
+    ConfirmDelete{Confirm Action?}:::decisionNode
+    RemoveVector[(Update Database and Remove Semantic Vector)]:::database
+end
+
+SelectMgmt --> ManageAccom --> ValidateInfo
+ValidateInfo -->|No| ValidationMsg --> ManageAccom
+ValidateInfo -->|Yes| SaveDB --> UpdateVector --> PublishAccom --> FinishMgmt
+
+SelectMgmt --> DeleteAccom --> ConfirmDelete
+ConfirmDelete -->|No| DeleteAccom
+ConfirmDelete -->|Yes| RemoveVector --> FinishMgmt
+
+VerifyData[Review and Verify Data Quality from Multiple Sources]:::admin
+SaveVerified[(Save Verified Information)]:::database
+SelectMgmt --> VerifyData --> SaveVerified --> FinishMgmt
+
+ManageOther[Manage Supporting Data: Types, Room Types, Amenities, Images, Locations, Data Sources, Users]:::admin
+SelectMgmt --> ManageOther --> FinishMgmt
+
+FinishMgmt[Finish Data Management]:::admin
+Logout[Logout]:::admin
+FinishMgmt --> Logout --> End
+
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

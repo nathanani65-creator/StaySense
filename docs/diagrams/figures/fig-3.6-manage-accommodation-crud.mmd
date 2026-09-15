@@ -1,0 +1,78 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+FromAdmin[↩ From Fig. 3.5 — Select Management Function: Manage Accommodation Data]:::connector
+ToFinishMgmt[↪ Returns to Fig. 3.5 — Finish Data Management]:::connector
+
+subgraph CRUD["Manage Accommodation Data Workflow - CRUD"]
+    direction TB
+    SelectOp{Select Operation}:::decisionNode
+    ViewAccomList[View Accommodation Records]:::admin
+
+    AddAccom[Add Accommodation]:::admin
+    EnterAccomInfo[/Enter Accommodation Information/]:::admin
+    AddRoomTypesStep[Add Room Types]:::admin
+    AddAmenitiesStep[Add Amenities]:::admin
+    UploadImages[Upload Images]:::admin
+    AddLocationStep[Add Location and Coordinates]:::admin
+    AddPlaces[Add Important Places and Distances]:::admin
+    RecordSource[Record Data Source and Verification Date]:::admin
+    ValidateInfo{Information Valid?}:::decisionNode
+    ValidationMsg[Display Validation Message]:::errorNode
+    SaveToDB[(Save Accommodation to MySQL Database)]:::database
+    PrepText[[Prepare Accommodation Text]]:::semantic
+    ConvertAccomVector[[Convert Accommodation Data to Vector]]:::semantic
+    SaveVector[(Save or Update Accommodation Vector)]:::database
+    PublishAccom[Publish Accommodation Information]:::admin
+    AddSuccess[Display Success Message]:::admin
+
+    EditAccom[Edit Accommodation]:::admin
+    RetrieveExisting[(Retrieve Existing Information)]:::database
+    ModifyInfo[Modify Accommodation Information]:::admin
+    ValidateUpdated[Validate Updated Information]:::admin
+    UpdateDB[(Update MySQL Database)]:::database
+    CheckSearchable{Searchable Information Changed?}:::decisionNode
+    UpdateSemantic[[Update Semantic Search Data]]:::semantic
+    ConvertUpdatedVector[[Convert Updated Information to Vector]]:::semantic
+    ReplaceVector[(Replace Existing Accommodation Vector)]:::database
+    FinishUpdate[Finish Update Process]:::admin
+
+    DeleteAccom[Delete or Unpublish Accommodation]:::admin
+    ConfirmDelete{Confirm Action?}:::decisionNode
+    ChangeStatus[Change Accommodation Status or Delete Record]:::admin
+    UpdateDB2[(Update Database)]:::database
+    RemoveVector[(Remove or Disable Semantic Search Vector)]:::database
+    DeleteSuccess[Display Success Message]:::admin
+end
+
+FromAdmin --> SelectOp
+SelectOp -->|Add| AddAccom
+SelectOp -->|View| ViewAccomList --> ToFinishMgmt
+SelectOp -->|Edit| EditAccom
+SelectOp -->|Delete / Unpublish| DeleteAccom
+
+AddAccom --> EnterAccomInfo --> AddRoomTypesStep --> AddAmenitiesStep --> UploadImages --> AddLocationStep --> AddPlaces --> RecordSource --> ValidateInfo
+ValidateInfo -->|No| ValidationMsg --> EnterAccomInfo
+ValidateInfo -->|Yes| SaveToDB --> PrepText --> ConvertAccomVector --> SaveVector --> PublishAccom --> AddSuccess --> ToFinishMgmt
+
+EditAccom --> RetrieveExisting --> ModifyInfo --> ValidateUpdated --> UpdateDB --> CheckSearchable
+CheckSearchable -->|Yes| UpdateSemantic --> ConvertUpdatedVector --> ReplaceVector --> FinishUpdate
+CheckSearchable -->|No| FinishUpdate
+FinishUpdate --> ToFinishMgmt
+
+DeleteAccom --> ConfirmDelete
+ConfirmDelete -->|No| SelectOp
+ConfirmDelete -->|Yes| ChangeStatus --> UpdateDB2 --> RemoveVector --> DeleteSuccess --> ToFinishMgmt
+
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

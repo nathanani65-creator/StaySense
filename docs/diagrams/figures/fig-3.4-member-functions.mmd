@@ -1,0 +1,62 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+FromAuth[↩ From Fig. 3.3 — Check User Role: Registered User]:::connector
+FromDetails[↩ From Fig. 3.2 — View Accommodation Details: Add to Favorites]:::connector
+ToSearch[↪ Fig. 3.2 — Semantic Search Workflow]:::connector
+ToLogin[↪ Fig. 3.3 — Enter Username and Password]:::connector
+End((End)):::startend
+
+subgraph MEMBER["Registered User Functions"]
+    direction TB
+    MemberDash[Open Member Functions]:::member
+    AddFav[Add to Favorites]:::member
+    CheckLoginStatus{Check Login Status}:::decisionNode
+    RedirectLogin[Redirect to Login]:::authNode
+    CheckExistingFav[[Check Existing Favorite]]:::member
+    SaveFav[(Save Favorite to Database)]:::database
+    FavSuccess[Display Success Message]:::member
+    ViewFav[View and Remove Favorites]:::member
+    ViewHistory[View Search History]:::member
+    ViewRecent[View Recently Viewed Accommodations]:::member
+    SelectCompare[Select Accommodations to Compare]:::member
+    AddCompare[Add to Comparison List]:::member
+    CompareInfo[[Compare Accommodation Information]]:::member
+    DisplayCompare[/Display Comparison Results/]:::member
+    RetrieveHistFav[[Retrieve Search History and Favorites]]:::member
+    AnalyzeInfo[[Analyze Relevant Accommodation Information]]:::member
+    GenerateRec[[Generate Recommendations]]:::member
+    DisplayRec[/Display Recommended Accommodations/]:::member
+    ManageProfile[Manage Personal Information]:::member
+    SearchAccom[Search Accommodation]:::member
+    LogoutR[Logout]:::member
+end
+
+FromAuth --> MemberDash
+FromDetails --> AddFav
+AddFav --> CheckLoginStatus
+CheckLoginStatus -->|Not Logged In| RedirectLogin --> ToLogin
+CheckLoginStatus -->|Logged In| CheckExistingFav --> SaveFav --> FavSuccess
+
+MemberDash --> AddFav
+MemberDash --> ViewFav
+MemberDash --> ViewHistory
+MemberDash --> ViewRecent
+MemberDash --> SelectCompare --> AddCompare --> CompareInfo --> DisplayCompare
+MemberDash --> RetrieveHistFav --> AnalyzeInfo --> GenerateRec --> DisplayRec
+MemberDash --> ManageProfile
+MemberDash --> SearchAccom --> ToSearch
+MemberDash --> LogoutR --> End
+
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550

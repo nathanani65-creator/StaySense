@@ -1,0 +1,322 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+%% =========================================================
+%% StaySense Phitsanulok: Accommodation Search System
+%% Using Semantic Search Techniques - Use Case Diagram
+%% (rendered with flowchart syntax: stadium shapes = use cases,
+%%  rectangles = actors, dashed rectangle = external system)
+%% =========================================================
+
+AGuest["🧍 Guest"]:::actor
+AMember["🧑‍💼 Registered User"]:::actor
+AAdmin["🛠️ Administrator"]:::actor
+AMaps["🗺️ Google Maps Service<br/>(External System)"]:::external
+
+subgraph SYS["StaySense Phitsanulok System Boundary"]
+
+  subgraph SEARCH["Search and Browsing Functions"]
+    direction TB
+    UC01(["Register"]):::searchUC
+    UC02(["Login"]):::searchUC
+    UC03(["Search Accommodations"]):::searchUC
+    UC04(["Enter Natural-Language Query"]):::searchUC
+    UC05(["Select Accommodation Type"]):::searchUC
+    UC06(["Select District"]):::searchUC
+    UC07(["Apply Search Filters"]):::searchUC
+    UC08(["Use Current Location"]):::searchUC
+    UC09(["View Search Results"]):::searchUC
+    UC10(["View Accommodation Details"]):::searchUC
+    UC11(["View Accommodation on Map"]):::searchUC
+    UC12(["View Nearby Places"]):::searchUC
+    UC13(["Share Accommodation"]):::searchUC
+  end
+
+  subgraph SEMANTIC["Semantic Search Functions"]
+    direction TB
+    UC14(["Process Search Query"]):::semanticUC
+    UC15(["Preprocess Query"]):::semanticUC
+    UC16(["Semantic Search"]):::semanticUC
+    UC17(["Convert Query to Vector"]):::semanticUC
+    UC18(["Retrieve Accommodation Vectors"]):::semanticUC
+    UC19(["Calculate Semantic Similarity"]):::semanticUC
+    UC20(["Apply Search Conditions"]):::semanticUC
+    UC21(["Rank Search Results"]):::semanticUC
+  end
+
+  subgraph AUTHG["Authentication and Authorization"]
+    direction TB
+    UC39(["Authenticate User"]):::authUC
+    UC40(["Authenticate Administrator"]):::authUC
+  end
+
+  subgraph MEMBERFN["Member Functions"]
+    direction TB
+    UC22(["Manage Profile"]):::memberUC
+    UC23(["Add Accommodation to Favorites"]):::memberUC
+    UC24(["View Favorite Accommodations"]):::memberUC
+    UC25(["Remove Accommodation from Favorites"]):::memberUC
+    UC26(["View Search History"]):::memberUC
+    UC27(["View Recently Viewed Accommodations"]):::memberUC
+    UC28(["Compare Accommodations"]):::memberUC
+    UC29(["View Personalized Recommendations"]):::memberUC
+    UC30(["Logout"]):::memberUC
+    UC31(["Select Accommodations"]):::memberUC
+    UC32(["Display Comparison Results"]):::memberUC
+    UC33(["Record Search History"]):::memberUC
+    UC34(["Record Recently Viewed"]):::memberUC
+    UC35(["Retrieve User Preferences"]):::memberUC
+    UC36(["Retrieve Favorites and Search History"]):::memberUC
+    UC37(["Generate Recommendations"]):::memberUC
+    UC38(["Display Recommended Accommodations"]):::memberUC
+  end
+
+  subgraph ADMINFN["Administration Functions"]
+    direction TB
+    UC41(["Access Administrator Dashboard"]):::adminUC
+
+    subgraph ACCOMCRUD["Manage Accommodations"]
+      direction TB
+      UC42(["Manage Accommodations"]):::adminUC
+      UC43(["Add Accommodation"]):::adminUC
+      UC44(["View Accommodation Information"]):::adminUC
+      UC45(["Edit Accommodation"]):::adminUC
+      UC46(["Delete or Unpublish Accommodation"]):::adminUC
+      UC47(["Validate Accommodation Information"]):::adminUC
+      UC48(["Record Data Source"]):::adminUC
+      UC49(["Record Verification Date"]):::adminUC
+    end
+
+    UC50(["Manage Accommodation Types"]):::adminUC
+    UC51(["Manage Room Types"]):::adminUC
+    UC52(["Manage Amenities"]):::adminUC
+
+    subgraph IMAGES["Manage Accommodation Images"]
+      direction TB
+      UC53(["Manage Accommodation Images"]):::adminUC
+      UC54(["Upload Accommodation Images"]):::adminUC
+      UC55(["Preview Images"]):::adminUC
+      UC56(["Set Cover Image"]):::adminUC
+      UC57(["Reorder Images"]):::adminUC
+      UC58(["Delete Image"]):::adminUC
+    end
+
+    subgraph ROOMIMAGES["Manage Room Images"]
+      direction TB
+      UC59(["Manage Room Images"]):::adminUC
+      UC60(["Upload Room Images"]):::adminUC
+      UC61(["Preview Room Images"]):::adminUC
+      UC62(["Set Room Cover Image"]):::adminUC
+      UC63(["Reorder Room Images"]):::adminUC
+      UC64(["Delete Room Image"]):::adminUC
+    end
+
+    UC65(["Manage Locations and Coordinates"]):::adminUC
+
+    subgraph NEARBY["Manage Nearby Places"]
+      direction TB
+      UC66(["Manage Nearby Places"]):::adminUC
+      UC67(["Manage Place Information"]):::adminUC
+      UC68(["Manage Accommodation-Place Distance"]):::adminUC
+    end
+
+    subgraph SOURCES["Manage Accommodation Sources"]
+      direction TB
+      UC69(["Manage Accommodation Sources"]):::adminUC
+      UC70(["Record Source URL"]):::adminUC
+      UC71(["Verify Accommodation Information"]):::adminUC
+    end
+
+    subgraph USERSG["Manage Users and Roles"]
+      direction TB
+      UC72(["Manage Users"]):::adminUC
+      UC73(["View User Information"]):::adminUC
+      UC74(["Edit User Information"]):::adminUC
+      UC75(["Disable User Account"]):::adminUC
+      UC76(["Manage User Roles"]):::adminUC
+      UC77(["Authorize User Access"]):::adminUC
+    end
+
+    subgraph SEMUPDATE["Update Semantic Search Data"]
+      direction TB
+      UC78(["Update Semantic Search Data"]):::adminUC
+      UC79(["Prepare Accommodation Text"]):::semanticUC
+      UC80(["Convert Accommodation Data to Vector"]):::semanticUC
+      UC81(["Save or Update Accommodation Vector"]):::semanticUC
+      UC82(["Disable Accommodation Vector"]):::semanticUC
+    end
+  end
+
+end
+
+%% =========================================================
+%% Associations (Actor - Use Case)
+%% =========================================================
+AGuest --- UC01
+AGuest --- UC02
+AGuest --- UC03
+
+AMember --- UC22
+AMember --- UC24
+AMember --- UC26
+AMember --- UC27
+AMember --- UC29
+AMember --- UC30
+
+AAdmin --- UC02
+AAdmin --- UC41
+AAdmin --- UC42
+AAdmin --- UC50
+AAdmin --- UC51
+AAdmin --- UC52
+AAdmin --- UC53
+AAdmin --- UC59
+AAdmin --- UC65
+AAdmin --- UC66
+AAdmin --- UC69
+AAdmin --- UC71
+AAdmin --- UC72
+AAdmin --- UC76
+AAdmin --- UC78
+AAdmin --- UC30
+
+AMaps --- UC08
+AMaps --- UC11
+AMaps --- UC65
+AMaps --- UC12
+
+%% =========================================================
+%% Generalization
+%% =========================================================
+AMember ==>|Generalization| AGuest
+
+%% =========================================================
+%% <<include>> relationships
+%% =========================================================
+UC03 -.->|«include»| UC04
+UC03 -.->|«include»| UC14
+UC03 -.->|«include»| UC16
+UC03 -.->|«include»| UC09
+UC14 -.->|«include»| UC15
+UC16 -.->|«include»| UC17
+UC16 -.->|«include»| UC18
+UC16 -.->|«include»| UC19
+UC16 -.->|«include»| UC20
+UC16 -.->|«include»| UC21
+
+UC22 -.->|«include»| UC39
+UC23 -.->|«include»| UC39
+UC24 -.->|«include»| UC39
+UC25 -.->|«include»| UC39
+UC26 -.->|«include»| UC39
+UC27 -.->|«include»| UC39
+UC28 -.->|«include»| UC39
+UC29 -.->|«include»| UC39
+
+UC28 -.->|«include»| UC31
+UC28 -.->|«include»| UC32
+UC29 -.->|«include»| UC35
+UC29 -.->|«include»| UC36
+UC29 -.->|«include»| UC37
+UC29 -.->|«include»| UC38
+
+UC41 -.->|«include»| UC40
+UC42 -.->|«include»| UC40
+UC72 -.->|«include»| UC40
+UC76 -.->|«include»| UC40
+
+UC43 -.->|«include»| UC47
+UC45 -.->|«include»| UC47
+UC43 -.->|«include»| UC48
+UC45 -.->|«include»| UC49
+UC43 -.->|«include»| UC78
+UC45 -.->|«include»| UC78
+UC46 -.->|«include»| UC78
+
+UC53 -.->|«include»| UC54
+UC53 -.->|«include»| UC55
+UC59 -.->|«include»| UC60
+UC59 -.->|«include»| UC61
+UC66 -.->|«include»| UC67
+UC66 -.->|«include»| UC68
+UC69 -.->|«include»| UC70
+UC69 -.->|«include»| UC49
+UC69 -.->|«include»| UC71
+UC76 -.->|«include»| UC77
+UC78 -.->|«include»| UC79
+UC78 -.->|«include»| UC80
+UC78 -.->|«include»| UC81
+
+%% =========================================================
+%% <<extend>> relationships
+%% =========================================================
+UC05 -.->|«extend»| UC03
+UC06 -.->|«extend»| UC03
+UC07 -.->|«extend»| UC03
+UC08 -.->|«extend»| UC03
+UC33 -.->|«extend»| UC03
+
+UC10 -.->|«extend»| UC09
+UC11 -.->|«extend»| UC10
+UC12 -.->|«extend»| UC10
+UC13 -.->|«extend»| UC10
+UC23 -.->|«extend»| UC10
+UC34 -.->|«extend»| UC10
+
+UC25 -.->|«extend»| UC24
+UC28 -.->|«extend»| UC09
+
+UC43 -.->|«extend»| UC42
+UC44 -.->|«extend»| UC42
+UC45 -.->|«extend»| UC42
+UC46 -.->|«extend»| UC42
+
+UC56 -.->|«extend»| UC53
+UC57 -.->|«extend»| UC53
+UC58 -.->|«extend»| UC53
+UC62 -.->|«extend»| UC59
+UC63 -.->|«extend»| UC59
+UC64 -.->|«extend»| UC59
+
+UC73 -.->|«extend»| UC72
+UC74 -.->|«extend»| UC72
+UC75 -.->|«extend»| UC72
+
+UC82 -.->|«extend»| UC78
+
+%% =========================================================
+%% Layout Order (invisible links - control vertical stacking
+%% only, draw no visible line, carry no UML meaning)
+%% =========================================================
+UC01 ~~~ UC02 ~~~ UC03 ~~~ UC04 ~~~ UC05 ~~~ UC06 ~~~ UC07 ~~~ UC08 ~~~ UC09 ~~~ UC10 ~~~ UC11 ~~~ UC12 ~~~ UC13
+UC14 ~~~ UC16
+UC39 ~~~ UC40
+UC22 ~~~ UC23 ~~~ UC24 ~~~ UC25 ~~~ UC26 ~~~ UC27 ~~~ UC28 ~~~ UC29 ~~~ UC30 ~~~ UC31 ~~~ UC32 ~~~ UC33 ~~~ UC34 ~~~ UC35 ~~~ UC36 ~~~ UC37 ~~~ UC38
+
+UC41 ~~~ UC42 ~~~ UC43 ~~~ UC44 ~~~ UC45 ~~~ UC46 ~~~ UC47 ~~~ UC48 ~~~ UC49 ~~~ UC50 ~~~ UC51 ~~~ UC52
+UC53 ~~~ UC54 ~~~ UC55 ~~~ UC56 ~~~ UC57 ~~~ UC58
+UC59 ~~~ UC60 ~~~ UC61 ~~~ UC62 ~~~ UC63 ~~~ UC64
+UC65 ~~~ UC66 ~~~ UC67 ~~~ UC68 ~~~ UC69 ~~~ UC70 ~~~ UC71
+UC72 ~~~ UC73 ~~~ UC74 ~~~ UC75 ~~~ UC76 ~~~ UC77
+UC78 ~~~ UC79 ~~~ UC80 ~~~ UC81 ~~~ UC82
+
+UC52 ~~~ UC53
+UC58 ~~~ UC59
+UC64 ~~~ UC65
+UC71 ~~~ UC72
+UC77 ~~~ UC78
+
+UC21 ~~~ UC39
+UC40 ~~~ UC22
+UC38 ~~~ UC41
+
+%% =========================================================
+%% Style Definitions
+%% =========================================================
+classDef actor fill:#EAECEE,stroke:#34495E,stroke-width:1.5px,color:#1B2631
+classDef external fill:#EAECEE,stroke:#7F8C8D,stroke-width:1.5px,stroke-dasharray:4 3,color:#1B2631
+classDef searchUC fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef semanticUC fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef memberUC fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef adminUC fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authUC fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05

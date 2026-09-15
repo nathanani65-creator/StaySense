@@ -1,0 +1,27 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "15px"}} }%%
+flowchart TD
+
+Start((Start)):::startend
+Access[/Access StaySense Phitsanulok Website/]:::guest
+SelectType{Select User Type}:::decisionNode
+GuestMode[Guest Mode: Browse Without Login]:::guest
+LoginSub[[Register and Login — see Fig. 3]]:::authNode
+SearchSub[[Semantic Search and Member Functions — see Fig. 2]]:::semantic
+AdminSub[[Administrator Data Management — see Fig. 4]]:::admin
+End((End)):::startend
+
+Start --> Access --> SelectType
+SelectType -->|Guest| GuestMode --> SearchSub
+SelectType -->|Registered User| LoginSub
+SelectType -->|Administrator| LoginSub
+LoginSub -->|Registered User| SearchSub
+LoginSub -->|Administrator| AdminSub
+SearchSub --> End
+AdminSub --> End
+
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631

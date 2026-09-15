@@ -1,0 +1,57 @@
+%%{init: {"flowchart": {"htmlLabels": true, "curve": "basis"}, "theme": "base", "themeVariables": {"fontSize": "14px"}} }%%
+flowchart TD
+
+FromAuth[↩ From Fig. 3.3 — Check User Role: Administrator]:::connector
+ToCRUD[↪ Fig. 3.6 — Manage Accommodation Data Workflow]:::connector
+ToVerify[↪ Fig. 3.7 — Data Quality Verification Workflow]:::connector
+FromVerify[↩ Returns from Fig. 3.7 after Save Verified Information]:::connector
+FromCRUD[↩ Returns from Fig. 3.6 after each operation]:::connector
+End((End)):::startend
+
+subgraph ADMIN["Administrator Functions"]
+    direction TB
+    CheckPermission{Check Administrator Permission}:::decisionNode
+    AdminDash[Open Administrator Dashboard]:::admin
+    SelectMgmt[Select Management Function]:::admin
+    ManageTypes[Manage Accommodation Types]:::admin
+    ManageRoomTypes[Manage Room Types]:::admin
+    ManageAmenities[Manage Amenities]:::admin
+    ManageImages[Manage Accommodation Images]:::admin
+    ManageLocation[Manage Coordinates and Landmarks]:::admin
+    ManageSource[Manage Data Source Information]:::admin
+    ManageUsers[Manage Users and Permissions]:::admin
+    UpdateSemanticData[[Update Semantic Search Index]]:::semantic
+    FinishMgmt[Finish Data Management]:::admin
+    LogoutA[Logout]:::admin
+end
+
+AccessDenied[Display Access Denied Message]:::errorNode
+FromAuth --> CheckPermission
+CheckPermission -->|Granted| AdminDash --> SelectMgmt
+CheckPermission -->|Denied| AccessDenied --> End
+SelectMgmt --> ToCRUD
+FromCRUD --> FinishMgmt
+SelectMgmt --> ManageTypes --> FinishMgmt
+SelectMgmt --> ManageRoomTypes --> FinishMgmt
+SelectMgmt --> ManageAmenities --> FinishMgmt
+SelectMgmt --> ManageImages --> FinishMgmt
+SelectMgmt --> ManageLocation --> FinishMgmt
+SelectMgmt --> ManageSource --> FinishMgmt
+SelectMgmt --> ManageUsers --> FinishMgmt
+SelectMgmt --> ToVerify
+FromVerify --> FinishMgmt
+SelectMgmt --> UpdateSemanticData --> FinishMgmt
+FinishMgmt --> LogoutA --> End
+
+classDef title fill:#FFFFFF,stroke:#FFFFFF,color:#1B2631,font-weight:bold
+classDef startend fill:#82E0AA,stroke:#1E8449,stroke-width:2px,color:#0B2E13
+classDef guest fill:#D6EAF8,stroke:#2E86C1,stroke-width:1px,color:#0B2E4D
+classDef member fill:#D5F5E3,stroke:#229954,stroke-width:1px,color:#0B3D24
+classDef admin fill:#FDEBD0,stroke:#CA6F1E,stroke-width:1px,color:#5C3A0E
+classDef authNode fill:#FCF3CF,stroke:#D4AC0D,stroke-width:1px,color:#5C4A05
+classDef semantic fill:#E8DAEF,stroke:#7D3C98,stroke-width:1px,color:#3B1E4D
+classDef database fill:#AEB6BF,stroke:#1B2631,stroke-width:2px,color:#1B2631
+classDef errorNode fill:#FADBD8,stroke:#C0392B,stroke-width:1px,color:#5C1A13
+classDef decisionNode fill:#FFFFFF,stroke:#5D6D7E,stroke-width:1.5px,color:#1B2631
+classDef tech fill:#EAECEE,stroke:#34495E,stroke-width:1px,color:#1B2631
+classDef connector fill:#EEF1F5,stroke:#8895A3,stroke-width:1px,stroke-dasharray:4 3,color:#3C4550
