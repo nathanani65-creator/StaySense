@@ -219,7 +219,6 @@ def search(
             score += _distance_score(d, 20.0) * 0.3 if d is not None else -0.1
         if score >= SIMILARITY_THRESHOLD:
             ranked.append((score, acc))
-    ranked.sort(key=lambda pair: (-pair[0], -float(pair[1].rating_avg)))
 
     # build structured reasons once, up front, so we can tell whether the
     # nearby-POI promise (if any) was actually honored for anyone
@@ -227,6 +226,12 @@ def search(
     for score, acc in ranked:
         rs = match_reasons.build_reasons(db, acc, intent, amenity_labels=amenity_labels, poi_labels=poi_labels)
         reasoned.append((score, acc, rs))
+
+    # a full match ("ตรงกับความต้องการมาก") must always outrank a partial one
+    # ("ตรงบางส่วน") regardless of raw semantic score — otherwise the badge
+    # shown on a card can contradict its position in the results list.
+    MATCH_LEVEL_PRIORITY = {"ตรงกับความต้องการมาก": 0, "ตรงบางส่วน": 1}
+    reasoned.sort(key=lambda t: (MATCH_LEVEL_PRIORITY.get(t[2].match_level, 2), -t[0], -float(t[1].rating_avg)))
 
     if wants_poi and reasoned and not any(r.type == "poi_match" for _, _, rs in reasoned for r in rs.reasons):
         # detected a real POI/category ask but couldn't verify proximity for

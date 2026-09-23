@@ -86,11 +86,22 @@ def _build_match_section(
                 score += _distance_score(d, 20.0) * 0.3 if d is not None else -0.1
             if score >= MATCH_SIMILARITY_THRESHOLD:
                 ranked.append((score, acc))
-        ranked.sort(key=lambda pair: (-pair[0], -float(pair[1].rating_avg)))
-        ranked = ranked[:SECTION_LIMIT]
-        if not ranked:
+
+        # build reasons up front so match-level completeness can drive
+        # ranking, same fix as /api/search — a full match ("ตรงกับความต้องการมาก")
+        # must outrank a partial one ("ตรงบางส่วน") regardless of raw semantic
+        # score, otherwise a card's own badge can contradict its position.
+        reasoned = []
+        for score, acc in ranked:
+            rs = match_reasons.build_reasons(db, acc, intent, amenity_labels=amenity_labels, poi_labels=poi_labels)
+            reasoned.append((score, acc, rs))
+        MATCH_LEVEL_PRIORITY = {"ตรงกับความต้องการมาก": 0, "ตรงบางส่วน": 1}
+        reasoned.sort(key=lambda t: (MATCH_LEVEL_PRIORITY.get(t[2].match_level, 2), -t[0], -float(t[1].rating_avg)))
+        reasoned = reasoned[:SECTION_LIMIT]
+        if not reasoned:
             return None
-        accs_ordered = [acc for _, acc in ranked]
+        accs_ordered = [acc for _, acc, _ in reasoned]
+        reasons_by_id = {acc.id: rs for _, acc, rs in reasoned}
     else:
         accs_ordered, _total = crud.list_accommodations(
             db, type_code=type_code, district_names=district_names or None,
@@ -100,11 +111,12 @@ def _build_match_section(
         )
         if not accs_ordered:
             return None
+        reasons_by_id = {}
 
     items = []
     for i, acc in enumerate(accs_ordered):
         out = crud.to_accommodation_out(acc)
-        rs = match_reasons.build_reasons(db, acc, intent, amenity_labels=amenity_labels, poi_labels=poi_labels) if has_query else None
+        rs = reasons_by_id.get(acc.id) if has_query else None
         if rs:
             out.matchReasons = [schemas.MatchReasonOut(type=r.type, message=r.message) for r in rs.reasons]
             out.matchedCriteria = rs.matched_criteria
