@@ -25,3 +25,26 @@ export function updatePlace(id, payload) {
 export function deletePlace(id) {
   return del(`/api/admin/places/${id}`)
 }
+
+// every place within radius (curated + live-estimated), for the admin
+// browse-and-curate view — mirrors the public nearby-places modal
+export function fetchAdminNearbyPlaces(accommodationId, radiusKm) {
+  return get(`/api/admin/accommodations/${accommodationId}/nearby-all`, radiusKm ? { radius_km: radiusKm } : undefined)
+}
+
+// curated distance links between one accommodation and nearby places
+export function fetchAccommodationPlaces(accommodationId) {
+  return get(`/api/admin/accommodations/${accommodationId}/places`)
+}
+
+export function createAccommodationPlace(accommodationId, payload) {
+  return post(`/api/admin/accommodations/${accommodationId}/places`, payload)
+}
+
+export function updateAccommodationPlace(linkId, payload) {
+  return put(`/api/admin/accommodation-places/${linkId}`, payload)
+}
+
+export function deleteAccommodationPlace(linkId) {
+  return del(`/api/admin/accommodation-places/${linkId}`)
+}

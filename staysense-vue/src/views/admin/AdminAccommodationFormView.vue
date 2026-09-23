@@ -5,6 +5,7 @@ import { fetchAccommodation } from '../../api/hotels'
 import { createAccommodation, updateAccommodation } from '../../api/admin'
 import { useReferenceData } from '../../composables/useReferenceData'
 import AdminRoomTypeEditor from './AdminRoomTypeEditor.vue'
+import AdminAccommodationPlacesEditor from './AdminAccommodationPlacesEditor.vue'
 import AdminImageManager from '../../components/admin/AdminImageManager.vue'
 
 const props = defineProps({ id: { type: String, default: null } })
@@ -202,6 +203,15 @@ const labelCls = 'mb-1 block text-[12.5px] font-semibold text-ink-soft'
           </div>
         </div>
       </section>
+
+      <!-- nearby places — only meaningful once the accommodation exists -->
+      <section v-if="isEdit" class="rounded-xl border border-line bg-white p-5">
+        <h2 class="mb-4 text-[15px] font-bold text-ink">สถานที่ใกล้เคียงและที่เที่ยวยอดนิยม</h2>
+        <AdminAccommodationPlacesEditor :accommodation-id="id" />
+      </section>
+      <p v-else class="rounded-xl border border-dashed border-line bg-white p-4 text-center text-[13px] text-ink-faint">
+        บันทึกที่พักนี้ก่อน จึงจะเชื่อมโยงสถานที่ใกล้เคียงได้
+      </p>
 
       <!-- contact -->
       <section class="rounded-xl border border-line bg-white p-5">

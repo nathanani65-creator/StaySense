@@ -10,6 +10,9 @@ export const PLACE_META = {
   convenience: { label: 'ร้านสะดวกซื้อ', emoji: '🏪' },
   restaurant: { label: 'ร้านอาหาร', emoji: '🍜' },
   museum: { label: 'พิพิธภัณฑ์', emoji: '🏛️' },
+  airport: { label: 'สนามบิน', emoji: '✈️' },
+  nightlife: { label: 'สถานบันเทิง', emoji: '🍸' },
+  university: { label: 'มหาวิทยาลัย', emoji: '🎓' },
   _: { label: 'อื่น ๆ', emoji: '📍' },
 }
 

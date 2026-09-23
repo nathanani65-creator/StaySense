@@ -85,6 +85,46 @@ def nearby_places(db: Session, acc: models.Accommodation, *, radius_km: float = 
     )
 
 
+def admin_nearby_places(db: Session, acc: models.Accommodation, *, radius_km: float = 12.0) -> list[schemas.AdminNearbyPlaceOut]:
+    """Same curated-or-haversine merge as nearby_places(), but for the admin
+    browse-and-curate view: every row keeps its place id and, if a curated
+    AccommodationPlace link already exists, that link's id too — so the
+    admin can edit an already-curated distance or "confirm" (curate) one
+    that's currently just a live estimate."""
+    curated = (
+        db.query(models.AccommodationPlace)
+        .options(joinedload(models.AccommodationPlace.place))
+        .filter(models.AccommodationPlace.accommodation_id == acc.id)
+        .all()
+    )
+    curated_by_place_id = {c.place_id: c for c in curated}
+
+    rows = [(float(c.distance_km), c.place, c) for c in curated if c.distance_km is not None]
+
+    if acc.latitude is not None and acc.longitude is not None:
+        for p in db.query(models.Place).all():
+            if p.id in curated_by_place_id:
+                continue
+            d = round(haversine_km(acc.latitude, acc.longitude, p.latitude, p.longitude), 2)
+            if d <= radius_km:
+                rows.append((d, p, None))
+
+    rows.sort(key=lambda r: r[0])
+
+    return [
+        schemas.AdminNearbyPlaceOut(
+            placeId=p.id,
+            name=p.name,
+            category=p.category,
+            distanceKm=d,
+            isPopular=p.is_popular,
+            isCurated=link is not None,
+            linkId=link.id if link else None,
+        )
+        for d, p, link in rows
+    ]
+
+
 def to_accommodation_out(acc: models.Accommodation) -> schemas.AccommodationOut:
     published_images = sorted(
         (i for i in acc.images if i.status == "published"), key=lambda i: (not i.is_cover, i.sort_order)
@@ -387,6 +427,22 @@ def to_admin_place_out(place: models.Place) -> schemas.AdminPlaceOut:
         isPopular=place.is_popular,
         sourceNote=place.source_note,
         districtName=place.district.name if place.district else None,
+    )
+
+
+def to_accommodation_place_out(ap: models.AccommodationPlace) -> schemas.AccommodationPlaceOut:
+    return schemas.AccommodationPlaceOut(
+        id=ap.id,
+        placeId=ap.place_id,
+        placeName=ap.place.name,
+        placeCategory=ap.place.category,
+        placeIsPopular=ap.place.is_popular,
+        distanceKm=float(ap.distance_km) if ap.distance_km is not None else None,
+        travelTimeMinutes=ap.travel_time_minutes,
+        travelMethod=ap.travel_method,
+        note=ap.note,
+        routeUrl=ap.route_url,
+        verifiedAt=ap.verified_at,
     )
 
 

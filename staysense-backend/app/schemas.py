@@ -455,6 +455,56 @@ class PlaceUpdate(BaseModel):
     district_name: str | None = None
 
 
+class AccommodationPlaceOut(BaseModel):
+    """A curated distance link between one accommodation and one place —
+    what the admin form manages; the public site reads this via
+    crud.nearby_places instead of this endpoint."""
+    id: int
+    placeId: int
+    placeName: str
+    placeCategory: str
+    placeIsPopular: bool = False
+    distanceKm: float | None = None
+    travelTimeMinutes: int | None = None
+    travelMethod: str | None = None
+    note: str | None = None
+    routeUrl: str | None = None
+    verifiedAt: date | None = None
+
+
+class AccommodationPlaceCreate(BaseModel):
+    place_id: int
+    distance_km: float | None = None
+    travel_time_minutes: int | None = None
+    travel_method: str | None = None
+    note: str | None = None
+    route_url: str | None = None
+    verified_at: date | None = None
+
+
+class AccommodationPlaceUpdate(BaseModel):
+    distance_km: float | None = None
+    travel_time_minutes: int | None = None
+    travel_method: str | None = None
+    note: str | None = None
+    route_url: str | None = None
+    verified_at: date | None = None
+
+
+class AdminNearbyPlaceOut(BaseModel):
+    """Every place within radius of an accommodation — curated (has a real
+    AccommodationPlace row, editable) or a live haversine estimate (not yet
+    curated) — for the admin's browse-and-confirm nearby-places view. Mirrors
+    what the public nearby-places modal shows, plus the ids needed to edit."""
+    placeId: int
+    name: str
+    category: str
+    distanceKm: float
+    isPopular: bool = False
+    isCurated: bool = False
+    linkId: int | None = None
+
+
 class NearbyOut(BaseModel):
     """Points of interest around one accommodation, distances computed live
     from the accommodation's coordinates (see crud.nearby_places)."""

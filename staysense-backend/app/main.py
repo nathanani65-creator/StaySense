@@ -11,6 +11,7 @@ from .database import SessionLocal
 from .routers import (
     accommodations,
     admin,
+    admin_accommodation_places,
     admin_amenities,
     admin_members,
     admin_places,
@@ -56,6 +57,7 @@ app.include_router(admin.router)
 app.include_router(admin_room_types.router)
 app.include_router(admin_amenities.router)
 app.include_router(admin_places.router)
+app.include_router(admin_accommodation_places.router)
 app.include_router(admin_members.router)
 app.include_router(home.router)
 app.include_router(images.router)
