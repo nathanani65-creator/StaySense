@@ -8,6 +8,9 @@ const props = defineProps({
   roomTypes: { type: Array, default: () => [] },
   typeCode: { type: String, default: 'hotel' },
   contactHref: { type: String, default: null },
+  // shown instead of a blank box when a room type has no photos of its own
+  // (common for sheet-imported data that only ever had property-wide photos)
+  fallbackImage: { type: String, default: null },
 })
 
 const p = computed(() => roomTypePresentation(props.typeCode))
@@ -34,6 +37,10 @@ onMounted(async () => {
 
 function imagesOf(rt) {
   return rt.images?.length ? rt.images.map((img) => img.url) : []
+}
+function displayImage(rt) {
+  const imgs = imagesOf(rt)
+  return imgs.length ? imgs[cur(rt)] : props.fallbackImage
 }
 function cur(rt) {
   return idx.value[rt.id] || 0
@@ -142,10 +149,14 @@ function extraInfo(rt) {
             <button
               type="button"
               class="block h-[210px] w-full bg-cover bg-center sm:h-full sm:min-h-[240px]"
-              :style="{ backgroundImage: imagesOf(rt).length ? `url(${imagesOf(rt)[cur(rt)]})` : 'none', backgroundColor: '#EEECFF' }"
+              :style="{ backgroundImage: displayImage(rt) ? `url(${displayImage(rt)})` : 'none', backgroundColor: '#EEECFF' }"
               @click="openGallery(rt)"
-              aria-label="ดูรูปห้อง"
+              :aria-label="imagesOf(rt).length ? 'ดูรูปห้อง' : undefined"
             />
+            <span
+              v-if="!imagesOf(rt).length && fallbackImage"
+              class="absolute bottom-2.5 left-2.5 rounded-lg bg-black/65 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm"
+            >ภาพตัวอย่างที่พัก</span>
             <template v-if="imagesOf(rt).length > 1">
               <button type="button" class="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-ink shadow hover:bg-white" @click.stop="step(rt, -1)" aria-label="ก่อนหน้า">
                 <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m15 18-6-6 6-6" /></svg>

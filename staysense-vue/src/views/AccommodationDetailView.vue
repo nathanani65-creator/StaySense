@@ -708,7 +708,7 @@ async function toggleRelatedFav(id) {
 
       <!-- ===== ROOMS — full width, its own section ===== -->
       <section v-if="hotel.roomTypes && hotel.roomTypes.length" id="rooms" class="mt-14 scroll-mt-[130px]">
-        <RoomTypeList :room-types="hotel.roomTypes" :type-code="hotel.typeCode" />
+        <RoomTypeList :room-types="hotel.roomTypes" :type-code="hotel.typeCode" :fallback-image="hotel.img" />
       </section>
 
       <section id="amenities" class="mt-14 scroll-mt-[130px] rounded-2xl border border-line bg-white p-6">
