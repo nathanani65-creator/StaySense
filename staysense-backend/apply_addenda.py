@@ -37,6 +37,7 @@ DEFAULT_FILES = [
     "schema_addendum_17.sql",
     "schema_addendum_18.sql",
     "schema_addendum_19.sql",
+    "schema_addendum_20.sql",
 ]
 
 # errors that mean "this piece is already in place" — safe to skip on re-run

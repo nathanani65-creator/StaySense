@@ -9,6 +9,7 @@ Usage:
     python import_new_template.py "path/to/file.xlsx" [--dry-run]
 """
 import argparse
+import re
 import sys
 
 import pandas as pd
@@ -21,7 +22,20 @@ try:
 except Exception:
     search_index = None
 
-TARGET_CODES = {"RS005", "RS006", "HT006", "HT007"}  # HT005 (ezzenhotel) skipped: no lat/lng/price in the sheet
+TARGET_CODES = {
+    "RS007", "HT008", "RS008", "RS009", "RS010", "HST003", "HT009",
+    "HST004", "HT010", "HT011", "RS011", "RS012", "HT012", "HST005",
+}
+# HT005 (ezzenhotel) still skipped: no lat/lng/price in the sheet.
+# GH001 (บ้านสวนพงษ์ศิริ เกสต์เฮาส์) skipped: its type "เกสต์เฮาส์/ที่พักรายวัน"
+# has no accommodation_types row yet — user decided to hold off adding a new
+# type for now rather than mislabel it as โฮมสเตย์.
+
+# Thailand's rough lat/lng box — catches copy-paste mistakes like a latitude
+# value pasted into the longitude column (e.g. lat=lng=16.8152), which would
+# otherwise silently place a pin in the wrong country.
+TH_LAT_RANGE = (5.0, 21.0)
+TH_LNG_RANGE = (97.0, 106.0)
 
 AMENITY_COLUMN_MAP = {
     "แอร์ (Y/N)": "aircon",
@@ -58,11 +72,12 @@ CATEGORY_MAP = {
     "ร้านอาหาร": "restaurant",
     "ร้านสะดวกซื้อ": "convenience",
     "ตลาด": "market",
-    "มหาวิทยาลัย": "university",
+    "มหาวิทยาลัย": "university", "สถานศึกษา": "university",
     "สถานบันเทิง": "nightlife",
     "แหล่งท่องเที่ยว": "attraction", "สถานที่ท่องเที่ยว": "attraction",
     "พิพิธภัณฑ์": "museum",
     "สนามบิน": "airport",
+    "ห้างค้าปลีก-ค้าส่งขนาดใหญ่": "mall",
 }
 
 
@@ -112,6 +127,13 @@ def clip(value, maxlen):
 IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp", ".gif")
 
 
+# Google's photo CDN serves real images with no file extension at all
+# (e.g. lh3.googleusercontent.com/gps-cs-s/AHRPTWn...=s1360-w1360-h1020-rw,
+# pulled from a Google Maps/Business Profile listing) — accept those on
+# domain alone rather than rejecting them for failing the extension check.
+IMAGE_CDN_DOMAINS = ("googleusercontent.com",)
+
+
 def is_real_image_url(url):
     """The sheet's "ลิงก์รูปภาพ" column occasionally has a hotel *listing
     page* pasted in by mistake (e.g. an agoda.com/.../hotel/all/... page)
@@ -119,6 +141,9 @@ def is_real_image_url(url):
     skip anything that isn't clearly an actual image file."""
     if not url:
         return False
+    lower = url.lower()
+    if any(domain in lower for domain in IMAGE_CDN_DOMAINS):
+        return True
     path = url.split("?", 1)[0].lower()
     return path.endswith(IMAGE_EXTENSIONS)
 
@@ -130,6 +155,64 @@ def to_5_scale(value):
     if value is None or pd.isna(value):
         return None
     return max(1, min(5, round(float(value) / 2)))
+
+
+def parse_int(value):
+    """Some sheets put a free-text note like 'ไม่มีข้อจำกัดอายุขั้นต่ำ' (or even
+    a stray date, from someone fat-fingering a cell) in an otherwise-numeric
+    column instead of leaving it blank — treat anything that isn't a real
+    number as 'not specified' rather than crashing the row."""
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return None
+    try:
+        return int(float(value))
+    except (TypeError, ValueError):
+        return None
+
+
+def parse_float(value):
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def parse_distance_km(value):
+    """Distance is normally already in km, but some sheet rows write meters
+    instead ('63 เมตร' / '450 ม.') for very close POIs — convert those
+    rather than importing a wildly wrong '63 km away'."""
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    text = str(value).strip()
+    m = re.search(r"(\d+(?:\.\d+)?)\s*(?:เมตร|ม\.)", text)
+    if m:
+        return round(float(m.group(1)) / 1000, 3)
+    m = re.search(r"(\d+(?:\.\d+)?)", text)
+    return float(m.group(1)) if m else None
+
+
+def parse_travel_time_minutes(value):
+    """Handles plain numbers, ranges like '5 - 10' (averaged), and
+    'H ชม. M นาที' / 'M นาที' text durations."""
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return None
+    if isinstance(value, (int, float)):
+        return int(value)
+    text = str(value).strip()
+    h_match = re.search(r"(\d+(?:\.\d+)?)\s*(?:ชม\.?|ชั่วโมง)", text)
+    m_match = re.search(r"(\d+(?:\.\d+)?)\s*นาที", text)
+    if h_match or m_match:
+        hours = float(h_match.group(1)) if h_match else 0
+        minutes = float(m_match.group(1)) if m_match else 0
+        return int(round(hours * 60 + minutes))
+    nums = [float(n) for n in re.findall(r"\d+(?:\.\d+)?", text)]
+    if not nums:
+        return None
+    return int(round(sum(nums) / len(nums)))
 
 
 def detect_view(text):
@@ -187,6 +270,8 @@ def main():
             price = parse_price(row.get("ราคาเริ่มต้น (บาท/คืน)"))
             if pd.isna(lat) or pd.isna(lng):
                 raise ValueError("ไม่มีพิกัดละติจูด/ลองจิจูด")
+            if not (TH_LAT_RANGE[0] <= float(lat) <= TH_LAT_RANGE[1]) or not (TH_LNG_RANGE[0] <= float(lng) <= TH_LNG_RANGE[1]):
+                raise ValueError(f"พิกัดผิดปกติ (lat={lat}, lng={lng}) — น่าจะเป็นข้อผิดพลาดตอนกรอกข้อมูล")
             if price is None:
                 raise ValueError("ไม่มีราคาต่อคืน")
 
@@ -206,11 +291,10 @@ def main():
             target.price_per_night = price
             target.description = clean(row.get("คำอธิบายเกี่ยวกับที่พัก"))
             target.amenities = amenity_objs
-            target.checkin_time = clean(row.get("เวลาเช็กอิน"))
-            target.checkout_time = clean(row.get("เวลาเช็กเอาต์"))
+            target.checkin_time = clip(clean(row.get("เวลาเช็กอิน")), 20)
+            target.checkout_time = clip(clean(row.get("เวลาเช็กเอาต์")), 20)
             target.cancellation_policy = clean(row.get("นโยบายยกเลิก/คืนเงิน"))
-            min_age = row.get("อายุขั้นต่ำผู้เช็กอิน (ปี)")
-            target.min_age = int(min_age) if not pd.isna(min_age) else None
+            target.min_age = parse_int(row.get("อายุขั้นต่ำผู้เช็กอิน (ปี)"))
             target.smoking_allowed = parse_yn(row.get("สูบบุหรี่ได้ (Y/N)"))
             target.deposit_required = bool(parse_yn(row.get("ต้องวางมัดจำ (Y/N)")))
             target.deposit_note = clip(clean(row.get("รายละเอียดเงินมัดจำ")), 255)
@@ -255,18 +339,18 @@ def main():
                 accommodation_id=acc.id,
                 name=clean(row.get("ชื่อห้อง/ชื่อบ้านพัก")) or "ห้องมาตรฐาน",
                 price_per_night=parse_price(row.get("ราคาเริ่มต้น (บาท/คืน)")) or float(acc.price_per_night),
-                max_occupancy=int(row["จำนวนผู้เข้าพักสูงสุด (คน)"]) if not pd.isna(row.get("จำนวนผู้เข้าพักสูงสุด (คน)")) else None,
-                standard_occupancy=int(row["จำนวนผู้เข้าพักปกติ (คน)"]) if not pd.isna(row.get("จำนวนผู้เข้าพักปกติ (คน)")) else None,
+                max_occupancy=parse_int(row.get("จำนวนผู้เข้าพักสูงสุด (คน)")),
+                standard_occupancy=parse_int(row.get("จำนวนผู้เข้าพักปกติ (คน)")),
                 bed_type=clean(row.get("ประเภทและจำนวนเตียง")),
                 view_type=detect_view(view_text),
-                room_size_sqm=float(row["ขนาดห้อง/บ้าน (ตร.ม.)"]) if not pd.isna(row.get("ขนาดห้อง/บ้าน (ตร.ม.)")) else None,
+                room_size_sqm=parse_float(row.get("ขนาดห้อง/บ้าน (ตร.ม.)")),
                 breakfast_included=bool(parse_yn(row.get("รวมอาหารเช้า (Y/N)"))),
                 extra_bed_available=bool(parse_yn(row.get("มีเตียงเสริม (Y/N)"))),
                 extra_bed_price=parse_price(row.get("ราคาเตียงเสริม (บาท/คืน)")),
-                extra_bed_max=int(row["เพิ่มเตียงเสริมสูงสุด (เตียง)"]) if not pd.isna(row.get("เพิ่มเตียงเสริมสูงสุด (เตียง)")) else None,
-                bedrooms=int(row["จำนวนห้องนอน"]) if not pd.isna(row.get("จำนวนห้องนอน")) else None,
-                bathrooms=int(row["จำนวนห้องน้ำ"]) if not pd.isna(row.get("จำนวนห้องน้ำ")) else None,
-                units_available=int(row["จำนวนห้อง/หลังที่มี"]) if not pd.isna(row.get("จำนวนห้อง/หลังที่มี")) else None,
+                extra_bed_max=parse_int(row.get("เพิ่มเตียงเสริมสูงสุด (เตียง)")),
+                bedrooms=parse_int(row.get("จำนวนห้องนอน")),
+                bathrooms=parse_int(row.get("จำนวนห้องน้ำ")),
+                units_available=parse_int(row.get("จำนวนห้อง/หลังที่มี")),
                 smoking_allowed=parse_yn(row.get("สูบบุหรี่ได้ (Y/N)")),
                 pets_allowed=parse_yn(row.get("สัตว์เลี้ยงเข้าพักได้ (Y/N)")),
                 description=clean(row.get("รายละเอียดห้องหรือบ้านพัก")) or clean(row.get("เงื่อนไขเพิ่มเติม")),
@@ -290,18 +374,22 @@ def main():
         if not is_real_image_url(url):
             errors.append(f"[รูปภาพ] {code}: ข้าม URL ที่ไม่ใช่รูปภาพจริง (เป็นลิงก์หน้าเว็บ): {url[:80]}...")
             continue
+        clipped_url = clip(url, 1024)
+        if clipped_url is None:
+            errors.append(f"[รูปภาพ] {code}: ข้าม URL ที่ยาวเกิน 1024 ตัวอักษร: {url[:80]}...")
+            continue
         try:
             if acc.id and acc.id not in img_cleared:
                 db.query(models.AccommodationImage).filter_by(accommodation_id=acc.id).delete()
                 img_cleared.add(acc.id)
-            order_raw = row.get("ลำดับการแสดง")
+            order_raw = parse_int(row.get("ลำดับการแสดง"))
             db.add(models.AccommodationImage(
                 accommodation_id=acc.id,
-                image_url=clip(url, 500),
+                image_url=clipped_url,
                 image_category=clean(row.get("หมวดหมู่รูปภาพ")),
                 caption=clip(clean(row.get("คำอธิบายภาพ")), 255),
                 is_cover=bool(parse_yn(row.get("ใช้เป็นภาพปก (Y/N)"))),
-                sort_order=int(order_raw) if not pd.isna(order_raw) else img_count,
+                sort_order=order_raw if order_raw is not None else img_count,
                 source_note=clip(clean(row.get("แหล่งข้อมูล/ลิงก์อ้างอิง")), 255),
                 status="published",
             ))
@@ -320,7 +408,15 @@ def main():
         db.commit()
 
     # ---- 4. POI + accommodation_places links -------------------------------
+    # Indexed by NAME, not by "รหัสสถานที่" — several rows in the links sheet
+    # have their POI code shifted by one relative to their own name/category
+    # columns (e.g. a link row citing code POI028 while its name+category
+    # columns actually describe POI027), which silently attaches the wrong
+    # category/coordinates to a new Place if looked up by that code. The POI
+    # definition sheet itself is internally consistent (name<->category<->
+    # lat/lng all agree on the same row), so keying by name sidesteps the bug.
     poi_rows = poi_df.set_index("รหัสสถานที่").to_dict("index")
+    poi_by_name = {clean(r.get("ชื่อสถานที่")): r for _, r in poi_df.iterrows() if clean(r.get("ชื่อสถานที่"))}
     link_count = 0
     for _, row in link_df[link_df["รหัสที่พัก"].isin(TARGET_CODES)].iterrows():
         code = clean(row.get("รหัสที่พัก"))
@@ -332,7 +428,7 @@ def main():
         try:
             place = place_lookup.get(poi_name)
             if not place:
-                poi_info = poi_rows.get(poi_code, {})
+                poi_info = poi_by_name.get(poi_name) or poi_rows.get(poi_code, {})
                 cat_th = clean(poi_info.get("หมวดหมู่")) or clean(row.get("หมวดหมู่สถานที่")) or ""
                 category = CATEGORY_MAP.get(cat_th, "attraction")
                 lat = poi_info.get("ละติจูด")
@@ -350,17 +446,17 @@ def main():
                 db.commit()
                 place_lookup[poi_name] = place
 
-            road_km = row.get("ระยะทางตามเส้นทาง (กม.)")
-            straight_km = row.get("ระยะทางเส้นตรง (กม.)")
-            distance_km = road_km if not pd.isna(road_km) else straight_km
-            if pd.isna(distance_km):
+            distance_km = parse_distance_km(row.get("ระยะทางตามเส้นทาง (กม.)"))
+            if distance_km is None:
+                distance_km = parse_distance_km(row.get("ระยะทางเส้นตรง (กม.)"))
+            if distance_km is None:
                 continue
-            travel_time = row.get("เวลาเดินทาง (นาที)")
+            travel_time_minutes = parse_travel_time_minutes(row.get("เวลาเดินทาง (นาที)"))
 
             existing_link = db.query(models.AccommodationPlace).filter_by(accommodation_id=acc.id, place_id=place.id).first()
             link = existing_link or models.AccommodationPlace(accommodation_id=acc.id, place_id=place.id)
-            link.distance_km = float(distance_km)
-            link.travel_time_minutes = int(travel_time) if not pd.isna(travel_time) else None
+            link.distance_km = distance_km
+            link.travel_time_minutes = travel_time_minutes
             link.travel_method = clip(clean(row.get("วิธีเดินทาง")), 50)
             link.route_url = clip(clean(row.get("ลิงก์เส้นทาง Google Maps")), 500)
             link.note = clip(clean(row.get("เหตุผลที่ถือว่าใกล้/หมายเหตุ")), 255)
